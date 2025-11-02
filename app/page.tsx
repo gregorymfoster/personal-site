@@ -1,6 +1,16 @@
+import Image from 'next/image';
+
 export default function Home() {
   return (
     <>
+      <Image
+        src="/profile.jpg"
+        alt="Greg Foster"
+        width={200}
+        height={200}
+        className="profile-image"
+        priority
+      />
       <h1>Greg Foster</h1>
       <p>
         I'm the cofounder of{' '}

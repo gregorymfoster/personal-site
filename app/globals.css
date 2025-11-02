@@ -116,3 +116,11 @@ pre code {
   font-size: 0.9em;
   margin-bottom: 2em;
 }
+
+.profile-image {
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+  display: block;
+}
