@@ -1,30 +1,39 @@
-import Link from 'next/link';
-
 export default function Home() {
   return (
     <>
-      <h1>Your Name</h1>
+      <h1>Greg Foster</h1>
       <p>
-        Brief introduction about yourself. What you do, what you're interested in, or what
-        you're working on.
+        I'm the cofounder of{' '}
+        <a href="https://graphite.dev" target="_blank" rel="noopener noreferrer">
+          Graphite
+        </a>
+        , where we're building the future of code review.
       </p>
+      <p>I studied computer science at Harvard and hold a patent in video manipulation.</p>
       <p>
-        <Link href="/blog">Blog</Link>
+        I write{' '}
+        <a href="https://smalldiffs.gmfoster.com/" target="_blank" rel="noopener noreferrer">
+          Small Diffs
+        </a>
+        , a newsletter about engineering enablement, modern DevTools, and building better
+        software.
       </p>
-      <h2>Contact</h2>
+      <h2>Links</h2>
       <ul>
         <li>
-          <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer">
-            Twitter
+          <a href="https://x.com/gregmfoster" target="_blank" rel="noopener noreferrer">
+            X
           </a>
         </li>
         <li>
-          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">
-            GitHub
+          <a href="https://www.linkedin.com/in/gregmfoster/" target="_blank" rel="noopener noreferrer">
+            LinkedIn
           </a>
         </li>
         <li>
-          <a href="mailto:you@example.com">Email</a>
+          <a href="https://smalldiffs.gmfoster.com/" target="_blank" rel="noopener noreferrer">
+            Small Diffs
+          </a>
         </li>
       </ul>
     </>

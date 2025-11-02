@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Your Name',
-  description: 'Personal website and blog',
-  metadataBase: new URL('https://yoursite.com'),
+  title: 'Greg Foster',
+  description: 'Cofounder of Graphite. Building the future of code review.',
+  metadataBase: new URL('https://gmfoster.com'),
   openGraph: {
-    title: 'Your Name',
-    description: 'Personal website and blog',
-    url: 'https://yoursite.com',
-    siteName: 'Your Name',
+    title: 'Greg Foster',
+    description: 'Cofounder of Graphite. Building the future of code review.',
+    url: 'https://gmfoster.com',
+    siteName: 'Greg Foster',
     locale: 'en_US',
     type: 'website',
   },

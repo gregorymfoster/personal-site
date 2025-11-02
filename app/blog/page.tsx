@@ -3,7 +3,7 @@ import { getBlogPosts } from '@/lib/mdx';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Blog - Your Name',
+  title: 'Blog - Greg Foster',
   description: 'Blog posts and writings',
 };
 
