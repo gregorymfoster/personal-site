@@ -124,3 +124,8 @@ pre code {
   margin-bottom: 1.5em;
   display: block;
 }
+
+.links {
+  margin-top: 2em;
+  color: #666;
+}

@@ -28,24 +28,19 @@ export default function Home() {
         , a newsletter about engineering enablement, modern DevTools, and building better
         software.
       </p>
-      <h2>Links</h2>
-      <ul>
-        <li>
-          <a href="https://x.com/gregmfoster" target="_blank" rel="noopener noreferrer">
-            X
-          </a>
-        </li>
-        <li>
-          <a href="https://www.linkedin.com/in/gregmfoster/" target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-        </li>
-        <li>
-          <a href="https://smalldiffs.gmfoster.com/" target="_blank" rel="noopener noreferrer">
-            Small Diffs
-          </a>
-        </li>
-      </ul>
+      <p className="links">
+        <a href="https://x.com/gregmfoster" target="_blank" rel="noopener noreferrer">
+          X
+        </a>
+        {' · '}
+        <a href="https://www.linkedin.com/in/gregmfoster/" target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+        {' · '}
+        <a href="https://smalldiffs.gmfoster.com/" target="_blank" rel="noopener noreferrer">
+          Small Diffs
+        </a>
+      </p>
     </>
   );
 }
