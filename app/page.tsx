@@ -16,14 +16,14 @@ export default function Home() {
       />
       <h1>Greg Foster</h1>
       <p>
-        I'm a cofounder of{' '}
+        I'm one of the cofounders of{' '}
         <a href="https://graphite.com" target="_blank" rel="noopener noreferrer">
           Graphite
         </a>
         , where I obsess about the future of code review and code collaboration broadly.
       </p>
       <section>
-        <h2>Select things I wrote</h2>
+        <h2>Some of things I wrote</h2>
         <ul className="link-list">
           <li>
             <a
@@ -86,7 +86,7 @@ export default function Home() {
         <ul className="link-list">
           <li>
             <a href="https://smalldiffs.gmfoster.com/" target="_blank" rel="noopener noreferrer">
-              Blog
+              Blog - more things I wrote
             </a>
           </li>
           <li>
