@@ -126,6 +126,8 @@ pre code {
 }
 
 .links {
+  list-style: none;
+  padding: 0;
   margin-top: 2em;
   color: #666;
 }
