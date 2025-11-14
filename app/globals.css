@@ -125,9 +125,16 @@ pre code {
   display: block;
 }
 
-.links {
+.link-list {
   list-style: none;
   padding: 0;
-  margin-top: 2em;
-  color: #666;
+}
+
+section {
+  margin-top: 2.5em;
+}
+
+section h2 {
+  margin-top: 0;
+  margin-bottom: 0.75em;
 }
