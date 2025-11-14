@@ -105,6 +105,20 @@ export default function Home() {
           </li>
         </ul>
       </section>
+      <section>
+        <h2>Random</h2>
+        <ul className="link-list">
+          <li>
+            <a
+              href="https://www.reddit.com/domain/graphite.dev/top/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Love and hate on Reddit
+            </a>
+          </li>
+        </ul>
+      </section>
     </>
   );
 }
