@@ -20,8 +20,53 @@ export default function Home() {
         , where I obsess about the future of code review and code collaboration broadly.
       </p>
       <section>
-        <h2>Select Writing</h2>
+        <h2>Select things I wrote</h2>
         <ul className="link-list">
+          <li>
+            <a
+              href="https://smalldiffs.gmfoster.com/p/the-human-code-context-problem"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              The human-code-context problem
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://graphite.com/blog/invention-of-modern-ci"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              From the 80's to 2024 - how CI tests were invented and optimized
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://graphite.com/blog/why-facebook-doesnt-use-git"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Why Facebook doesn't use Git
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://graphite.com/blog/github-monopoly-on-code-hosting"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub's monopoly on code hosting
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://graphite.com/blog/onboarding-roulette"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Onboarding roulette
+            </a>
+          </li>
           <li>
             <a
               href="https://smalldiffs.gmfoster.com/p/are-you-having-any-fun"
@@ -36,6 +81,11 @@ export default function Home() {
       <section>
         <h2>Links</h2>
         <ul className="link-list">
+          <li>
+            <a href="https://smalldiffs.gmfoster.com/" target="_blank" rel="noopener noreferrer">
+              Blog
+            </a>
+          </li>
           <li>
             <a href="https://x.com/gregmfoster" target="_blank" rel="noopener noreferrer">
               X
