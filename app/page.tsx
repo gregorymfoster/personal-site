@@ -27,11 +27,11 @@ export default function Home() {
         <ul className="link-list">
           <li>
             <a
-              href="https://smalldiffs.gmfoster.com/p/the-human-code-context-problem"
+              href="https://smalldiffs.gmfoster.com/p/gregs-three-rules-for-naming-projects"
               target="_blank"
               rel="noopener noreferrer"
             >
-              The human-code-context problem
+              Three rules for naming projects
             </a>
           </li>
           <li>
