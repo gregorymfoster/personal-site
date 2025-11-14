@@ -1,14 +1,17 @@
 import Image from 'next/image';
+import UrlEncouragement from './UrlEncouragement';
 
 export default function Home() {
   return (
     <>
+      <UrlEncouragement />
       <Image
         src="/profile.jpg"
         alt="Greg Foster"
         width={200}
         height={200}
         className="profile-image"
+        style={{ height: 'auto' }}
         priority
       />
       <h1>Greg Foster</h1>
