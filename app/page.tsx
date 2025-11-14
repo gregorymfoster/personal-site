@@ -110,15 +110,6 @@ export default function Home() {
         <ul className="link-list">
           <li>
             <a
-              href="https://www.google.com/search?q=greg+foster+campus+cutie&rlz=1C5CHFA_enUS877US877&oq=greg+foster+campus+cutie&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRiPAjIHCAUQIRiPAtIBCDI3NTBqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              College throwback
-            </a>
-          </li>
-          <li>
-            <a
               href="https://www.reddit.com/domain/graphite.dev/top/"
               target="_blank"
               rel="noopener noreferrer"
