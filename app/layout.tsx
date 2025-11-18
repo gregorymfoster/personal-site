@@ -1,10 +1,9 @@
-import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/react';
+import type { Metadata } from 'next';
 import './globals.css';
 
-const baseUrl = process.env.NODE_ENV === 'development' 
-  ? 'http://localhost:3001' 
-  : 'https://gmfoster.com';
+const baseUrl =
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : 'https://gmfoster.com';
 
 export const metadata: Metadata = {
   title: 'Greg Foster',

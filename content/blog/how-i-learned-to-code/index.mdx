@@ -1,0 +1,93 @@
+---
+title: How I Learned to Code
+date: 2025-11-17
+description: The story of how I taught myself iOS development at 15, built my first apps, and discovered a lifelong passion for programming.
+---
+
+I moved homes every three or so years growing up because my father worked in manufacturing. When I was 15, shortly after moving from Sheffield, England, to Reno, Nevada, my parents told me I needed to get a job. They would cover school and books, but anything extra - gas money, movie tickets, video games - would need to come from money that I earned.
+
+I could shovel driveways, mow lawns, wash cars. But more realistically, I needed to get a real job.
+
+I started by applying to every Starbucks and Red Robin in town. I printed out 20 copies of my resume on the family printer, and my mom drove me around while I shyly handed the paper to each venue and maître d'. Unfortunately, my high school sophomore-year resume, which listed only a few classes and no clubs, would not cut it.
+
+It was also 2010, shortly after the 2008–2009 financial crisis, and I was competing with college graduates for these entry-level jobs. On top of that, I am pretty sure it was illegal to hire me at that age. None of this stopped me from applying; it just meant I never made it out of the resume pile.
+
+While I was failing to get a job, I was also developing a growing obsession with touchscreen computers. I had an iPod touch and a beat-up Android smartphone. Earlier that year, I had collaborated with the only other high school coder in Reno, a guy named Patt Briggs, to create a popular free Android game called Box Buster, where you'd tilt your phone to stack falling boxes.
+
+Patt coded, and I designed all the images and graphics in a pirated version of Photoshop. After launch, the free game amassed 50,000+ downloads on the App Store and was mildly well-received. No accounts, no ads, no subscriptions. Just a fun game we were proud to have created.
+
+I remember the hardest part of creating the game being the image assets and layout. I had no idea how to account for infinite different aspect ratios across Android screen sizes. The brute-force solution we landed on was: on first app boot, resize all game assets on device to match the aspect ratio, write them to a new folder, and then work off those forever. First-principle, chaotic solutions to classical problems. We even practiced source code sharing using Tortoise SVN, though I had absolutely no idea what I was doing at the time.
+
+With my newfound need for a job, and my previous project making an Android game, I saw an opportunity. What if I made iOS apps and sold them for 99 cents? I was already buying simple apps for my iPod touch, and the App Store seemed like a magical way to distribute software and make money.
+
+There was one problem: I didn't have a Mac, which was required for iOS development.
+
+So I took our family's Intel desktop tower and pirated a copy of VMWare, along with a snapshot of an old big-cat Mac OS. (At this point, I was strongly benefiting from pre-teen video game torrenting skills.) From MacOS in VMWare, I installed Xcode and even booted an iOS simulator. There were so many levels of virtualization, but somehow the family computer held on.
+
+While I had never coded before, I was reasonably skilled at Photoshop and graphic design. My love of design had started with reading old Photoshop magazines at the Borders café on weekends and making digital art for my unrequited middle school crushes. I knew basic design. I knew nothing about code.
+
+Every book or website I picked up seemed to start with "Given you know C, here's Python" or "Given you know Python, here's Ruby." What if I didn't know any language?
+
+Eventually, I found two resources: Coding for Dummies, which explained the fundamentals of Java programming, and an iTunes U course on iOS development from Stanford. I devoured them, having more fun than I ever did in a high school class. Little by little, I started cobbling together an iOS app.
+
+My first creation was a pros-and-cons app - simply a way to make a dual-column list, weigh factors, and come to a conclusion. At least it was more novel than a to-do list. My code was terrible, but my skeuomorphic designs were not shabby. I would research how to get an image on the screen. Then a button. Then, how to animate a transition. Piece by piece, the app came together.
+
+The architecture was awful. I did not understand memory cleanup, so memory leaks would crash the app after 30 minutes of use. Luckily, most iOS apps were not used for more than 30 minutes anyway. I manually tested the app over and over, not understanding automated testing, and would excitedly demo my progress to my parents each night after dinner. I really wanted them to see this as something real.
+
+After a month or so of work, I was ready to release the app. I distinctly remember hitting one brutal last hurdle: certificate provisioning and code signing. It took me a full week of bashing my head against Xcode. My father had to enter his SSN because I was too young to earn money on the App Store. I paid the $100 developer fee, which felt like an ambitious but justified fixed cost.
+
+And all the while, I was running out of time. I still hadn't proven to my parents that this was a valid way to make money. They were very clear that if this experiment failed, I needed to shift my time to bagging groceries.
+
+Finally, I got the app approved and launched it into the store.
+
+Now I needed traction.
+
+I immediately took over my family's iTunes accounts, downloaded the 99-cent app, and rated it 5 stars. That got me my first review, but it was not enough. With my parents' help, I broke a $20 bill into $1s and went to school the next day. I asked every friend if I could pay them a dollar on the spot, take their phone, buy my app, and rate it 5 stars.
+
+Kids looked at me strangely, shrugged, and let me do it.
+
+That pattern was enough to bootstrap the app to 30+ five-star reviews. At that point, it started to gain organic traction. Strangers began buying it. There were not many productivity apps in the App Store then, and mine definitely had pretty graphics for the era.
+
+The next big win came when Apple featured the app under "New and Noteworthy," which propelled it into the top 10 list on the App Store. I suspect I was carried by my graphic design and fast rise in reviews. It certainly wasn't my code quality. But the accolade increased the app's visibility and further grew my downloads.
+
+I was suddenly making real money. Hundreds of dollars every day, making money while I slept and attended classes. I showed my parents the numbers, and finally, their skepticism started to give way to intrigue and approval. They still did not really understand what I was doing, but they could not argue with a bank account.
+
+I was elated. This was huge. I could hack away on the family computer, release something, and earn just as much money as a job. Maybe even more. It was fun and exhilarating. There was no ceiling. I was only limited by how fast I could keep coding.
+
+I remember calling my high school crush and telling her about my success, hoping this might finally impress her. She gave me mild congratulations and remained completely uninterested. That stung for about five minutes, and then I went back to my new love: code.
+
+I started setting my alarm for 5 am so I could code before school, waking up and heading straight into the shower to get my blood flowing as fast as possible. I skipped joining clubs and instead rushed straight home at 2:30 pm to keep coding. I started experimenting (idiotically) with polyphasic sleep cycles and lucid dreaming with the goal of finding more time to code. I literally wanted to code in my dreams.
+
+Under ambitious self-imposed timelines, I released a second app. This one grifted off Google's Ngram dataset to help people graph how popular words in books were over time. I had no idea if this was useful, but I thought the dataset was so cool.
+
+The hardest part was accessing the data. Google had no formal API for it, and I was intimidated by network calls. But if I constructed the right URL, I could fetch a JPEG of their graph into memory. From there, I wrote deterministic algorithms to scan the graph image's pixel grid and reverse-engineer the plot points. With the data, I could redraw the graphs in my own custom UI and create a prettier experience. It was another chaotic, brute-force solution, but it reliably worked.
+
+I launched my Ngram app not long after the first pros-and-cons app. Once again, I hustled for early reviews. But I wanted to take it a step further.
+
+I was curious about iOS translation files. If I could localize the app, I could sell it to more people. I did not speak any other languages, and AI translations did not exist. But there was a French foreign exchange girl in my grade. I took a 20-euro note I had left over from living in Sheffield and approached her at school.
+
+I had handwritten the 100 English strings from the app on a notepad. I asked if she would translate them into French for 20 euros. She shrugged and took the deal. I brought the handwritten translations home and typed them into the app, which let me release it in the French App Store.
+
+Lo and behold, the app did fine in America, but quickly rose to the top charts in France. I always suspected that was because there were not many iOS apps being written natively in French at the time.
+
+All the while, as I coded these apps, my mind kept getting blown by basic programming concepts. Pointers were cool. But you know what's cooler? A function calling itself. What if you kept calling the same function over and over? Would the universe explode?
+
+Nope. That's just recursion.
+
+I didn't look at these concepts with arrogance. I had no one in my hometown to brag to. Instead, I felt giddy, like I had found a secret set of rules behind the world. How freaking cool is recursion? Protocols? Pub-sub communication between classes? MVC? The feeling of being stuck on a bug for a week, coming home every day to try again, and finally noticing your own typo after days of searching. That jumping-up-and-down "fuck yes" moment when it finally works. It was beautifully addictive.
+
+I kept pulling on the string of loving code.
+
+By my junior year, my parents had seen my obsession and the actual profits, and they became encouraging. They paid for me to attend a summer session at nearby Stanford, which might be my favorite summer of my life. I attended CS106B, their second-level coding class, and sat in the front row every day of the dead-energy summer lectures. I was the most enthusiastic try-hard you have ever seen.
+
+I spent time in the Stanford treehouse, hiked the Dish at midnight, and explored the steam tunnels after hours. For the first time ever, I didn't need to sneak coding in between schoolwork - it was the schoolwork.
+
+I kept coding.
+
+The day I graduated from high school, my family moved again, this time to Irving, Texas, for my father's job. I knew no one in the state, but I managed to get a minimum-wage nepo-internship in the back corner of a cubicle in my father's manufacturing IT department.
+
+There, I coded a custom KPI-browsing iOS app for the company, reporting to an IT manager each week and showing my work. I have no idea if they ever used the app, but it was my first experience coding day in and day out for a "real" job. I used that summer to learn Vim one slow, painful keystroke at a time, even hiding my computer mouse from myself so I could not give up.
+
+This early passion for coding iOS took me far. I was accepted into Harvard, in part because of my coding ability. In college, I skipped ahead and took CS61 as a freshman, where I met one of my future cofounders, Tomas. iOS coding got me my first two internships and later helped me land a new-grad full-time job offer.
+
+Nowadays, I spend less time inside Xcode and more time thinking about the broader craft of software engineering. But I will always have a soft spot in my heart for indie iOS development and for that 15-year-old version of me who just wanted to prove that sitting at a computer all day could be a real job.

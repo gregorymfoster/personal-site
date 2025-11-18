@@ -1,8 +1,8 @@
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
 import { getBlogPost, getBlogPosts } from '@/lib/mdx';
-import { compileMDX } from 'next-mdx-remote/rsc';
 import type { Metadata } from 'next';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -51,16 +51,17 @@ export default async function BlogPost({ params }: PageProps) {
   return (
     <>
       <h1>{post.title}</h1>
-      <p className="post-date">
+      <p className="post-meta">
         {new Date(post.date).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
-        })}
+        })}{' '}
+        • Greg Foster
       </p>
       <article>{content}</article>
       <p>
-        <Link href="/blog">← Back to blog</Link>
+        <Link href="/">← Home</Link>
       </p>
     </>
   );

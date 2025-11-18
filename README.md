@@ -64,3 +64,15 @@ The site uses Node.js 22 (specified in `.nvmrc`), which Vercel will automaticall
 - `npm start` - Start production server
 - `npm run lint` - Lint code with Biome
 - `npm run format` - Format code with Biome
+- `npm test` - Run tests
+- `npm run test:watch` - Run tests in watch mode
+
+## Testing
+
+The project includes simple tests using Vitest and React Testing Library to verify:
+
+- Blog posts load correctly with valid metadata
+- Pages render without errors
+- Core functionality works as expected
+
+Run `npm test` to verify everything is working.

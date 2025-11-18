@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const contentDirectory = path.join(process.cwd(), 'content/blog');
 
@@ -16,12 +16,17 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     return [];
   }
 
-  const files = fs.readdirSync(contentDirectory);
-  const posts = files
-    .filter((file) => file.endsWith('.mdx'))
-    .map((file) => {
-      const slug = file.replace(/\.mdx$/, '');
-      const filePath = path.join(contentDirectory, file);
+  const folders = fs.readdirSync(contentDirectory, { withFileTypes: true });
+  const posts = folders
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => {
+      const slug = dirent.name;
+      const filePath = path.join(contentDirectory, slug, 'index.mdx');
+
+      if (!fs.existsSync(filePath)) {
+        return null;
+      }
+
       const content = fs.readFileSync(filePath, 'utf8');
       const metadata = extractMetadata(content);
 
@@ -31,13 +36,14 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         ...metadata,
       };
     })
+    .filter((post): post is BlogPost => post !== null)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
-  const filePath = path.join(contentDirectory, `${slug}.mdx`);
+  const filePath = path.join(contentDirectory, slug, 'index.mdx');
 
   if (!fs.existsSync(filePath)) {
     return null;
@@ -70,12 +76,12 @@ function extractMetadata(content: string): {
   const metadataStr = metadataMatch[1];
   const metadata: Record<string, string> = {};
 
-  metadataStr.split('\n').forEach((line) => {
+  for (const line of metadataStr.split('\n')) {
     const [key, ...valueParts] = line.split(':');
     if (key && valueParts.length) {
       metadata[key.trim()] = valueParts.join(':').trim();
     }
-  });
+  }
 
   return {
     title: metadata.title || 'Untitled',

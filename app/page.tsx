@@ -1,7 +1,10 @@
+import { getBlogPosts } from '@/lib/mdx';
 import Image from 'next/image';
+import Link from 'next/link';
 import UrlEncouragement from './UrlEncouragement';
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getBlogPosts();
   return (
     <>
       <UrlEncouragement />
@@ -22,6 +25,16 @@ export default function Home() {
         </a>
         , where I obsess about the future of code review and code collaboration broadly.
       </p>
+      <section>
+        <h2>Lore</h2>
+        <ul className="link-list">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/writing/${post.slug}`}>{post.title}</Link>
+            </li>
+          ))}
+        </ul>
+      </section>
       <section>
         <h2>Some of things I wrote</h2>
         <ul className="link-list">

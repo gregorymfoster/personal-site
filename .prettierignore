@@ -1,0 +1,14 @@
+# Ignore everything except markdown
+*.ts
+*.tsx
+*.js
+*.jsx
+*.json
+*.css
+*.html
+node_modules
+.next
+out
+build
+dist
+

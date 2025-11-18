@@ -17,9 +17,10 @@ export default function UrlEncouragement() {
   useEffect(() => {
     // Only run on client side and only if we haven't already added a message
     if (typeof window !== 'undefined' && !window.location.hash) {
-      const randomMessage = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
+      const randomMessage =
+        encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];
       const newUrl = `${window.location.pathname}#${randomMessage}`;
-      
+
       // Use replaceState to update URL without reloading or adding to history
       window.history.replaceState({}, '', newUrl);
     }
@@ -28,4 +29,3 @@ export default function UrlEncouragement() {
   // This component doesn't render anything
   return null;
 }
-
