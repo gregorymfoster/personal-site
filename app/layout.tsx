@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: 'Greg Foster',
   description: 'Cofounder of Graphite. Building the future of code review.',
   metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: baseUrl,
+  },
   openGraph: {
     title: 'Greg Foster',
     description: 'Cofounder of Graphite. Building the future of code review.',
@@ -28,6 +31,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@gregmfoster',
+    site: '@gregmfoster',
   },
 };
 

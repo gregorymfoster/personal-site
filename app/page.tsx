@@ -1,12 +1,61 @@
 import { getBlogPosts } from '@/lib/mdx';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import UrlEncouragement from './UrlEncouragement';
 
+const baseUrl = 'https://gmfoster.com';
+
+export const metadata: Metadata = {
+  title: 'Greg Foster',
+  description:
+    'Cofounder of Graphite. Building the future of code review. Essays on software engineering, startups, and learning.',
+  alternates: {
+    canonical: baseUrl,
+  },
+  openGraph: {
+    title: 'Greg Foster',
+    description:
+      'Cofounder of Graphite. Building the future of code review. Essays on software engineering, startups, and learning.',
+    url: baseUrl,
+    siteName: 'Greg Foster',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    creator: '@gregmfoster',
+    site: '@gregmfoster',
+  },
+};
+
 export default async function Home() {
   const posts = await getBlogPosts();
+
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Greg Foster',
+    url: baseUrl,
+    image: `${baseUrl}/profile.jpg`,
+    jobTitle: 'Cofounder',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Graphite',
+      url: 'https://graphite.dev',
+    },
+    sameAs: [
+      'https://x.com/gregmfoster',
+      'https://www.linkedin.com/in/gregmfoster/',
+      'https://github.com/gregmfoster',
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
       <UrlEncouragement />
       <Image
         src="/profile.jpg"
@@ -36,7 +85,7 @@ export default async function Home() {
         </ul>
       </section>
       <section>
-        <h2>Some of things I wrote</h2>
+        <h2>Some things I wrote</h2>
         <ul className="link-list">
           <li>
             <a

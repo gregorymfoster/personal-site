@@ -23,14 +23,35 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
+  const baseUrl = 'https://gmfoster.com';
+  const postUrl = `${baseUrl}/writing/${slug}`;
+
   return {
     title: `${post.title} - Greg Foster`,
     description: post.description,
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.description,
+      url: postUrl,
+      siteName: 'Greg Foster',
       type: 'article',
       publishedTime: post.date,
+      images: [
+        {
+          url: `${baseUrl}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      creator: '@gregmfoster',
+      site: '@gregmfoster',
     },
   };
 }
@@ -48,8 +69,39 @@ export default async function BlogPost({ params }: PageProps) {
     options: { parseFrontmatter: true },
   });
 
+  const baseUrl = 'https://gmfoster.com';
+  const postUrl = `${baseUrl}/writing/${slug}`;
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      '@type': 'Person',
+      name: 'Greg Foster',
+      url: baseUrl,
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Greg Foster',
+      url: baseUrl,
+    },
+    url: postUrl,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': postUrl,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <h1>{post.title}</h1>
       <p className="post-meta">
         {new Date(post.date).toLocaleDateString('en-US', {

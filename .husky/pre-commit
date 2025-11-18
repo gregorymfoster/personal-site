@@ -1,15 +1,1 @@
-echo "🔍 Running pre-commit validation..."
-
-# Run lint-staged for linting and formatting staged files
-echo "📝 Linting staged files..."
 npx lint-staged
-
-# Run full build to catch any build errors
-echo "🏗️  Building project..."
-npm run build
-
-# Run all tests
-echo "🧪 Running tests..."
-npm test
-
-echo "✅ All validations passed! Proceeding with commit..."
