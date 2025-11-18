@@ -29,6 +29,9 @@ export default async function WritingPage() {
 
   return (
     <>
+      <nav className="breadcrumb">
+        <Link href="/">Home</Link>
+      </nav>
       <h1>Writing</h1>
       <p>Essays and reflections on code, startups, and learning.</p>
       {posts.length === 0 ? (
@@ -47,7 +50,6 @@ export default async function WritingPage() {
                   day: 'numeric',
                 })}
               </p>
-              {post.description && <p>{post.description}</p>}
             </li>
           ))}
         </ul>

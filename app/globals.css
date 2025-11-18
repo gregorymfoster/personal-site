@@ -235,6 +235,20 @@ pre code {
   padding: 0;
 }
 
+.breadcrumb {
+  font-size: 0.875em;
+  color: #666;
+  margin-bottom: 1.5em;
+}
+
+.breadcrumb a {
+  color: #666;
+}
+
+.breadcrumb a:hover {
+  color: #0969da;
+}
+
 section {
   margin-top: 2.5em;
 }

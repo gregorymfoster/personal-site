@@ -102,6 +102,9 @@ export default async function BlogPost({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
       />
+      <nav className="breadcrumb">
+        <Link href="/">Home</Link> › <Link href="/writing">Writing</Link>
+      </nav>
       <h1>{post.title}</h1>
       <p className="post-meta">
         {new Date(post.date).toLocaleDateString('en-US', {
