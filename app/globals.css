@@ -150,6 +150,14 @@ article li {
   margin-bottom: 0.75em;
 }
 
+article img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+  display: block;
+}
+
 article ul ul,
 article ol ol,
 article ul ol,
