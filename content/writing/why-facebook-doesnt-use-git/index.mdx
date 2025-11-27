@@ -1,0 +1,97 @@
+---
+title: Why Facebook doesn't use Git
+date: 2024-03-06
+description: Why do Facebookers not use Git? Why adopt Mercurial instead and build custom workflows on top of it? The answer involves community, collaboration, and a masterclass in internal migrations.
+---
+
+I work on building Graphite, which is fundamentally inspired by internal Facebook tooling. When I set out to create a startup with friends, I had never heard of Mercurial - despite being passionate about all things devtools. My previous engineering experience has included personal projects, college homework, iOS development at Google, and infra development at Airbnb. Throughout my life, Git was as common as water. It was so common, in fact, that I assumed it was the only viable tool for creating and managing code changes.
+
+Funny enough, Mercurial expert Gregory Szorc sat a few seats away from me at Airbnb, though I only knew him as a kind deskmate and knew nothing of his contributions.
+
+In 2021, my teammates Tomas and Nick opened my mind. They came from Facebook and, to my surprise, hardly knew Git. Instead, they were deeply trained on Mercurial patterns and Facebook's "stacked diffs" workflow. Over time, they sold me on the benefits of non-git tooling and patterns, and we ended up making an early company pivot to bring stacked diffs to GitHub developers. In the process, we made a CLI that incorporated ideas from Hg into Git.
+
+This post is not about our startup. Rather, it's about the root question that has nagged me over the last three years. Why do Facebookers (Metamates 🏴‍☠️) not use Git? Why adopt Mercurial instead and build custom workflows on top of it? I know Google doesn't use Git - but that makes sense - Google's engineering predates Git by over five years. Facebook, on the other hand, was founded at the same time that Git was created, ~2004, and by the time Facebook was seriously evaluating source control tooling, Git was more popular than Mercurial. So why does Facebook not use Git?
+
+This question is niche, but I think it's a fun one to consider. If Facebook had leaned into Git and contributed back in the early 2010s, the engineering world might have looked different. Git might be more user-friendly and might natively support stacked changes. GitHub might have developed better support for closed-source software development. Ex-early-facebooker companies like Uber and Pinterest might have also used Git and GitHub as their source control rather than Phabricator and Mercurial, leading to a less fragmented ecosystem over the last decade.
+
+But Facebook didn't stick with Git (for their primary monorepos). Instead, they adopted Mercurial for their version control and incrementally added custom tooling on top. Why? First, I tried Googling the answer and found the following definitive blog post:
+
+https://engineering.fb.com/2014/01/07/core-infra/scaling-mercurial-at-facebook/
+
+The ten-year-old write-up, along with some later YouTube tech talks, gave me a starting answer: "because performance."
+
+But I wanted to go deeper and hear from the original deciding engineers. With the help of a teammate, I posted a question on the ex-Facebookers group asking about the history. I also cold-emailed two of the original engineers working on the project to migrate onto Mercurial - they were kind enough to call me off the record and give personal accounts of the project. Here is what I was able to learn as the full reason behind not using Git at Facebook - hopefully, this post can help further document the history behind why our tools in 2024 are the way they are.
+
+*Note: I never worked at Facebook, and this account is my best understanding of the facts as someone who wasn't there myself. I was able to speak to a few people who worked on the project, and received their permission to write about what they explained to me.*
+
+## Why and how Facebook migrated off Git
+
+According to the 2014 Facebook blog post, Facebook started out on Git. As one would expect, it was their default choice at the time for a source control system. But around 2012, they started hitting scaling limits. The post claims their codebase was "many times larger than even the Linux kernel, which checked in at 17 million lines of code and 44,000 files." Specifically, Git operations started feeling slow for engineers. Not cripplingly slow, but slow enough to warrant investigation.
+
+The key bottleneck was the process of "stat-ing" all the files. "Git examines every file and naturally becomes slower and slower as the number of files increases." The engineers tried running a simulation, creating a dummy repo that matched the expected scale of Facebook's codebase in a few years. The result was horrifying - basic Git commands took over 45 minutes to complete. In the words of an original engineer on the project, "It's not the kind of thing you want to leave until all your engineers are complaining. By that point, the thing would be too unwieldy. Trying to do damage control, never mind, come up with a cleaner solution, would be a herculean effort."
+
+So, a rag-tag group of SWEs got to work investigating solutions. First, they contacted the Git maintainers to see what it would take to extend Git to support large monorepos better:
+
+Here are some choice quotes from an email thread with the Git maintainers - it's 12 years later, and yet I feel somewhat frustrated reading these messages:
+
+> sounds like you have everything in a single .git. Split up the massive repository to separate smaller .git repositories.
+
+> While you /can/ do this it's not a good idea, you should split up repositories
+
+> I concur. I'm working in the [sic] company with many years of development history with several huge CVS repos and we are slowly but surely migrating the codebase from CVS to Git. Split the things up. This will allow you to reorganize things better and there is IMHO no downsides.
+
+> While Git could better [sic] with large repositories (in particular applying commits in interactive rebase seems to be to slow down on bigger repositories) there's only so much you can do about stat-ing 1.3 million files.
+
+The response wasn't cooperative - nor has it aged well in a future full of large monorepos. The Git maintainers pushed back on improving performance and instead recommended that Facebook shard their monorepo. However, sharding was a non-starter for the Facebook team, and they recounted being surprised by Git's unwillingness to be extended. Traditionally, being offered free open-source labor by a major tech company is a well-received gift that can ensure a long life for projects.
+
+That being said, the Git project was under no obligation to bend to Facebook's asks - I don't intend to paint them as the "bad guys" of this story. Doing something because Facebook asked you to is no way to live one's life. Interestingly, the Git maintainers appear to change their tone two years later after seeing Facebook contribute back meaningful improvements to Mercurial:
+
+> They mailed the list about performance issues in git. From what I saw there was relatively little feedback.
+
+> I had the impression, and I would not be surprised if they had the impression that the git development community is relatively unconcerned about performance issues on larger repositories.
+
+> so the question is if the git community is interested in being competitive in such large scale scenarios - something what mercurial seems to be now out of the box
+
+A decade later, Git has made significant improvements to support monorepos better.
+
+> fwiw, the situation has changed pretty drastically today, Git now (with some knowledge of how to do it) operates well with really really large repos now.
+>
+> Ani Betts, ex-facebooker
+
+## Alternatives considered
+
+Alternatives to Git in 2012 were scarce. The team considered the closed-source Perforce, Google's former source control solution. In an early investigation call with Perforce sales engineers, Facebook pointed out an architectural flaw in Perforce's local consistency between reader and writer nodes. The response didn't instill confidence - the sales engineers weren't aware of the fundamental issue and had no roadmap plans to address it.
+
+Further solutions, like Bitkeeper, were considered - but all were quickly disqualified. The last option was Mercurial. It had a performance similar to Git but had cleaner architecture. Where Git was a complex web of Bash and C code, Mercurial was engineered in Python using object-oriented coding patterns and was designed to be extensible.
+
+One of the investigating engineers had strong former experience with Mercurial, and the team decided to attend a Mercurial hackathon in Amsterdam to investigate further.
+
+> And because I had a lot of prior association with Mercurial, I bent over backwards to pursue every possible alternative before even putting Mercurial on the table.
+>
+> Bryan O'Sullivan, ex-facebooker
+
+What they found was a system that was easy to extend and a community of maintainers who were impressively welcoming to aggressive changes by the Facebook team.
+
+I think this was the specific hackathon mentioned, but I'm not positive. Some real early 2010's vibes in this video: https://www.youtube.com/watch?v=fml4s6MEjW8
+
+## Migrating the whole engineering org
+
+After the Amsterdam hackathon, the Facebook team was convinced. All that remained was convincing the rest of the company of the migration. This was an intimidating task - engineers can be extremely sensitive about tooling changes (imagine vim vs emacs), and changing source control systems is a big deal.
+
+The team set out a smoothly as possible, so as not to trigger defensive responses from the other engineers. What ensued sounds like a masterclass in internal devtools migrations. The team spent months socializing the possibility of migrating to Mercurial, and took time to map all common commands and workflows between Git and Mercurial. They went so far as to source the frequency of Git commands run across the company, and specifically document how the most frequent operations would work in Mercurial instead.
+
+Secondly, they created opportunities for developers to voice their concerns and discuss any edge cases that might be tricky in the new system. Going in, the team assumed they'd get bogged down in flame wars over obtuse 8-way-octopus-merge hypotheticals. But to their surprise, they found their peer engineers to be accommodating and friendly. "No one stood up and started screaming about their special situation."
+
+Finally, they committed to the migration and cut the company over to Mercurial. The rest is history. Facebook contributed performance improvements to Mercurial, making it the best option for large monorepos. Evan Priestley extended Phabricator to support Mercurial. Facebook leveraged Mercurial's concept of "diffs" to create a pattern of "stacking," unlocking novel code-review parallelization. Ex-facebookers left to new companies and brought their workflow with them, creating a small but vocal cult of stacked diff enthusiasts. Finally, I met some of those enthusiasts and decided to dedicate my 20s to bringing Mercurial-style stacked diffs to Git and GitHub.
+
+## Closing thoughts
+
+What is the takeaway from this story? Reflecting on the quotes and interviews, I'm reminded of the classic wisdom that so many of history's key technical decisions are human-driven, not technology-driven.
+
+Facebook didn't adopt Mercurial because it was more performant than Git. They adopted it because the maintainers and codebase felt more open to collaboration. Facebook engineers met face-to-face with Mercurial maintainers and liked the idea of partnering. When it came to persuading the whole engineering org, the decision got buy-in due to thoughtful communication - not because one technology was strictly better than another.
+
+> For all of those reading this, I think this was Bryan's true brilliance in getting Mercurial adopted at FB and something people should consider when bringing a new technology to a company.
+>
+> Ex-facebooker, 2024
+
+Kindness and openness go far in the world of devtools, and I aim to carry on these values as I contribute to the history of source control.

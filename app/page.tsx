@@ -88,40 +88,18 @@ export default async function Home() {
             </Link>
           </li>
           <li>
-            <a
-              href="https://graphite.com/blog/why-facebook-doesnt-use-git"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Why Facebook doesn't use Git
-            </a>
+            <Link href="/writing/why-facebook-doesnt-use-git">Why Facebook doesn't use Git</Link>
           </li>
           <li>
-            <a
-              href="https://graphite.com/blog/github-monopoly-on-code-hosting"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/writing/github-monopoly-on-code-hosting">
               GitHub's monopoly on code hosting
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="https://graphite.com/blog/onboarding-roulette"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Onboarding roulette
-            </a>
+            <Link href="/writing/onboarding-roulette">Onboarding roulette</Link>
           </li>
           <li>
-            <a
-              href="https://smalldiffs.gmfoster.com/p/are-you-having-any-fun"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Are you having any fun?
-            </a>
+            <Link href="/writing/are-you-having-any-fun">Are you having any fun?</Link>
           </li>
         </ul>
       </section>

@@ -1,0 +1,65 @@
+---
+title: "Onboarding roulette: deleting our employee accounts daily"
+date: 2024-03-14
+description: How we test our hardest-to-test feature by randomly deleting one engineer's Graphite account every day at 9am.
+---
+
+I'm a strong believer in automated tests - and a moderately disciplined author of them. Software engineering is exceptionally hard to get functionally correct, and even harder to avoid regressing later. As author Michael Feathers says, "Legacy code is any code that doesn't have a test."
+
+Some things, such as server endpoints, database schemas, and UI library components, are straightforward to test.
+
+Other things are hard to test, such as endpoints that call third-party APIs, react web pages with complex states, and async jobs that require detailed DB records. At Airbnb, I found testing password reset emails hard because of the outsourced email sending that takes place.
+
+Such functionality still deserves tests - for two reasons. One, it still matters that they don't regress - and their complexity makes them all the more likely to. Secondly, testing complex features often forces engineers to architect the feature in such a way that it can be tested. The early establishment of tests can motivate narrower interfaces and less coupling, leading to a better long-term codebase.
+
+## To test or not to test?
+
+The world's not perfect - sometimes you have time to write a feature, but not time to establish automated tests on that feature. Why does this happen? Like a reverse P=NP problem, many features are much easier to create than they are to test. Consider a react to-do list app with swipe-to-delete. It can take 30 minutes to create, but might take hours or days to establish automated UI tests that verify "swipe-to-delete". These imbalances, along with business-driven urgency, lead teams to code features and skip adding expensive tests.
+
+Is that bad? Not necessarily if you're pragmatic - there are cases where it's worthwhile taking on debt by creating functionality without tests. The benefit of the untested feature may be high, the cost of testing high, and your resources low. Maybe you're on a short-staffed team or an evening side project. If you force yourself to add automated unit tests to your to-do list app, you might never launch it to 10 early adopters. (However, if you still don't test swipe-to-delete after a million users, you might be asking for an incident.)
+
+Delaying automated tests is a slippery slope, but product creation requires the art of strategically taking on debt. The "loan" allows teams to validate quickly, and discovered value can later be spent paying down the tech debt (with interest). This is true for startups raising venture, and it's true for teams building MVPs. Spend too much time building expensive tests up front, and you may run out of time to ship, learn and pivot.
+
+![xkcd comic about testing](/images/xkcd-testing.png)
+
+https://xkcd.com/2730/
+
+## Getting creative
+
+Keep in mind that "no automated tests" doesn't mean "no testing at all." By default, not having tests means you're quietly forcing users to find bugs for you. Production traffic and thorough alerting can serve as a weak replacement for automated testing, but you better have rapid rollbacks or flags in place with your finger on the trigger. Frustrated users won't stick around for long.
+
+Better than production traffic is a subset of production traffic - you often don't need all your users to hit a bug to find a regression, just a few. This is where [canary rollouts](https://cloud.google.com/deploy/docs/deployment-strategies/canary) and beta cohorts can become useful. But there's still the issue of real users hitting real regressions, and it requires good monitoring to know when users are having a bad time.
+
+Better than beta cohorts is [dogfooding](https://codesubmit.io/blog/is-dogfooding-right-for-your-team/). Send real users through the feature that you don't want to test automatically, but have those users be you. You can't rage quit your own product, and your eyeballs make for a great dynamic alerting service (just remember to close them for eight hours every night).
+
+## The onboarding struggle
+
+There you have it—automated tests, canary releases, beta cohorts, and dogfooding—a spectrum of ways to test features. Graphite's engineering team uses all these techniques, yet there remain blind spots in our functionality.
+
+One of the hardest blind spots for us to test is product onboarding. It's a doozie involving an OAuth loop with GitHub, async loading of repository metadata, queries against our own databases, and custom UI elements not reused elsewhere in the app. Despite these challenges onboarding is critical, and we need to test it somehow.
+
+Classic synthetic tests are rendered flakier than normal due to GitHub login bot detection. Canary traffic testing doesn't help much here, because production users who fail to onboard rarely report it - and can sometimes appear in logs as indecisive rather than blocked. Beta cohorts rarely catch anything because they only onboard once - the same is true for traditional dogfooding.
+
+## Spinning the wheel
+
+Our solution at Graphite has been to run a roulette script, randomly deleting one of our engineers' Graphite accounts every day at 9 a.m. We don't just reset onboarding—we delete their account, tokens, configured filters, uploaded gifs, and more.
+
+![Screenshot of roulette bot deleting someone's account](/images/roulette-bot.png)
+
+Isn't that frustrating? Sure. Folks on our team come to work to code new features, not to find themselves logged out and forced to recreate their accounts from scratch. We were cautious when first trying the technique, but the benefits became clear immediately. Note: this is only their Graphite product account - they still have access to GitHub and all other company accounts.
+
+![Slack bug report from onboarding test](/images/slack-bug-report.png)
+
+Like most products, Graphite aims for fast, bug-free, and painless onboarding. The best way for us to ensure this is to suffer through onboarding once every day ourselves. Across our full Eng-product-design team, any individual only gets deleted once a month on average. But one teammate a day hitting a sharp edge has proven enough to find and motivate fixing issues.
+
+Deleting employee accounts has created dogfooding on one of our most critical and hard to test surfaces. We've caught tens of bugs, and created user empathy in a traditional blindspot. I'd strongly recommend other product teams consider automatically deleting employee accounts for the same benefits.
+
+## Current limitations
+
+Is it perfect? No. Deleted employees recreate accounts in the existing Graphite org. That means they still skip some aspects of onboarding that real users hit when they're the first to set Graphite up in a new organization, such as long initial sync times. In the future, I'd like to explore deleting the entire Graphite company account once a month to increase the dogfooding - though I'm wary of the bigger obstruction to the team's morning code changes.
+
+Can every product afford to delete employee accounts as much as we do? Possibly not - some accounts accumulate not just configuration, but troves of meaningful user-created content. Instagram and Google Docs for example, might not be able to get away with such a heavy-handed approach. But many services, especially ones where user created data survives individual account deletion, serve to benefit. Products like Datadog, Vercel, Hex, and Superhuman however, could get away with deleting employee accounts once a month. Sure, those people will need to recreate personal dashboards and filters - but that's the point.
+
+## Feeding the future
+
+Will we keep deleting employee accounts forever at Graphite? I suspect so. Dogfooding onboarding is not better than automated testing however - we are continuously making expensive investments to establish real unit and e2e tests here. But dogfooding is sufficiently different than automated testing, and together they compound. Dogfooding catches unknown unknowns in a way that automated tests fail to. It builds user empathy among the creators - as well as deep product opinions that folks can incorporate into future updates. If it's not easy to recreate your account, then is it easy enough for a new user to get started in the first place?
