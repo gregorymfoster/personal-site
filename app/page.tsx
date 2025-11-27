@@ -78,22 +78,14 @@ export default async function Home() {
         <h2>Some things I wrote</h2>
         <ul className="link-list">
           <li>
-            <a
-              href="https://smalldiffs.gmfoster.com/p/gregs-three-rules-for-naming-projects"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/writing/three-rules-for-naming-projects">
               Three rules for naming projects
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="https://graphite.com/blog/invention-of-modern-ci"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="/writing/invention-of-modern-ci">
               From the 80's to 2024 - how CI tests were invented and optimized
-            </a>
+            </Link>
           </li>
           <li>
             <a

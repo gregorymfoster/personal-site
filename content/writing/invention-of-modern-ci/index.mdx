@@ -1,0 +1,99 @@
+---
+title: From the 80's to 2024 - How CI Tests Were Invented and Optimized
+date: 2024-04-11
+description: The history of continuous integration testing, from manual code inspections in the 1980s to modern parallelized cloud CI systems and the future of AI-powered code review.
+---
+
+Modern dev teams test every code change before merging. This isn't just a convention; right along with code review, it's a default standard enforced across almost all company codebases. We call this "continuous integration tests," and the net result is that the average organization runs hundreds of test suites a day.
+
+Looking back in time, continuous integration testing hasn't been around forever - but testing software roughly has. From what I can tell, CI is a result of testing getting faster and faster over time. How did things get this way, and where can future test speedups be found?
+
+## The slowest way to test code - by reading
+
+Software testing was slow in the 1980s. Much of the testing was focused on finding possible errors in the code above all else. Michael Fagan popularized "Fagan Inspections," which involved groups of engineers pouring over code printouts looking for mistakes. It was time-intensive, manual, and looked more like intensive code review than what we think of as software testing today.
+
+In the 1990s, software unit tests became more prevalent. But for a time, unit tests were predominantly written by specialized software testers in the company using custom tooling and practices. Some thought that the original code authors might have blind spots in testing their own code—and to be fair, we still don't trust engineers to review their own code changes for similar reasons.
+
+Tests were run infrequently for two reasons at this point: they were not always written by the software authors themselves, and they could be slow to execute. Depending on the complexity of the tests, combined with the slower computers of the time, test suites could take hours or even a full day to complete. If a separate engineer was needed to write tests for your code, and the test suite didn't run until the following evening, it might be days before an engineer got feedback on why their change broke builds.
+
+## Testing it yourself, sometimes
+
+Kent Beck's 1999 book Extreme Programming (XP) helped usher in a cultural change. Engineers were encouraged to write small isolated tests for each new piece of code they contributed. "The XPer view was that programmers could learn to be effective testers, at least at the unit level, and that if you involved a separate group, the feedback loop that tests gave you would be hopelessly slow. Xunit played an essential role here; it was designed specifically to minimize the friction for programmers writing tests."
+
+By having code authors write their own tests, there was a chance that new code could be tested more frequently than at the point of integration. The faster testing led to shorter feedback cycle times for developers. But self-testing was an opt-in process, relying on authors to diligently run local tests before merging. What's more, the test's success was dependent on the author's local computer running it rather than a source-of-truth server. Codebases were still at risk of breaking the next time a build was cut and test suites executed.
+
+## Run an automated server to test the changes
+
+While Google started automating its build tests in 2003, the engineering industry took slightly longer to do the same. But automation was sorely needed:
+
+> Software systems are growing larger and ever more complex… To make matters worse, new versions are pushed to users frequently, sometimes multiple times each day. This is a far cry from the world of shrink-wrapped software that saw updates only once or twice a year.
+>
+> The ability for humans to manually validate every behavior in a system has been unable to keep pace with the explosion of features and platforms in most software. - Software Engineering at Google
+
+Sun Microsystem's engineer, Kohsuke Kawaguchi, was key to ushering in the next era of testing. In 2004, he created "Hudson" (later renamed to Jenkins in fun Oracle drama). At his day job, Kohsuke "got tired of incurring the wrath of his team every time his code broke the build." He could have manually triggered tests before each code contribution, but instead, Kohsuke chose the classic engineering solution and created an automated program. The Hudson tool acted as a long-lived test server that could automatically verify each code change as it integrated into the codebase.
+
+![2006 Hudson screenshot](/images/invention-of-modern-ci-hudson.png)
+
+Kohsuke open-sourced Hudson, and it exploded in popularity. The first generation of automated continuous integration tests had begun, and for the first time, it became common to test every code change as it was written. Similar tools like Bamboo and Team City quickly spun up, but Hudson's open-source popularity reigned dominant.
+
+## Pay someone else to test your changes automatically
+
+Towards the late 2000s, code hosting shifted to the cloud. Rather than teams running their own Subversion servers to host and integrate code changes, more and more folks moved to host their code on GitHub. Continuous integration tests followed the trend and shifted to the cloud as well, with the likes of CircleCI and Travis CI launching in 2011. Not only were engineering teams committing to a culture of testing every change, but now, smaller companies could outsource the maintenance of the test runners themselves. Larger older companies mostly remained on Jenkins because they could afford to continue maintaining CI servers themselves and because Jenkins offered more advanced control.
+
+During the mid-2010s, we witnessed two evolutions of cloud-based CI systems.
+
+1. Zero-maintenance CI systems merged with code hosting services. GitLab was the first to offer this all-in-one solution, offering users a way to trigger their CI tests in the same platform that they were reviewing and merging the changes. Microsoft acquired GitHub in 2018 and pushed for the release of GitHub Actions backed by Microsoft's Azure DevOps product. In both cases, the two most popular code hosting platforms began natively offering integrated CI test execution.
+
+2. Larger organizations shifted off Jenkins to more modern self-hosted options. BuildKite was the first popular modern solution, launching in 2013. It offered a way for companies to get the benefits of web dashboards and coordination while still hosting their code and test executions on their own compute. GitHub and GitLab later offered their own self-hosted runners, and some very manual companies opted to execute their own tests in AWS's CodeDeploy pipelines or Azure's DevOps platform.
+
+The arc of software testing can be viewed along a spectrum of velocity and cheapness:
+
+- **[Days & weeks]** In the 1980s, software code changes were slowly reviewed by hand to find bugs. Test suites might be run overnight or only before releases.
+- **[Days and nights]** In the 90s, automated tests became more commonly written, whether by specialized software testers or eventually by the code authors themselves. Code changes started to get tested before rather than after merging with the rest of the codebase.
+- **[Hours and minutes]** In the early 2000s, the first automatic integration testing servers launched and became popular, leading to the testing of every change as it merged into the codebase.
+- **[Minutes]** Around 2011, zero-maintenance CI test services became available. Now, small teams could also benefit from testing every change.
+
+## Maximizing how fast a single change can be tested
+
+Best practices aim to keep CI times around 10-15 minutes so that developers can uphold short iteration speeds - but this becomes ever more challenging as codebases and test suites grow in size every year.
+
+> Engineers don't wait for slow tests. The slower a test is, the less frequently an engineer will run it, and the longer the wait after a failure until it is passing again. - Software Engineering at Google
+
+There are only three ways to speed up something in software: vertical scaling, parallelization, or caching. In the case of CI, all three are used - with increased focus on caching and parallelization in recent years.
+
+For decades, Moore's law ensured that increasingly powerful CPUs could execute test suites faster—though at a cost. Using on-demand cloud services, engineers can toggle a setting in AWS or GitHub actions to pay for a larger box in hopes that their test suite will execute faster.
+
+Secondly, CI providers became progressively sophisticated in parallelization. BuildKite, GitHub Actions, and other providers let users define graphs of testing steps, allowing for different computers to hand off context and execute tests in parallel for the same code change. Cloud computing allows organizations to provision seemingly infinite parallel hosts to execute tests without fear of resource contention. Lastly, sophisticated build tooling like Bazel and Buck allow for large codebases to compute build DAGs and parallelize build and test execution based on the dependency graph within the code itself.
+
+Thirdly, CI caching systems have evolved to minimize repeated work. CI runners commonly support remote caching of install and build steps, allowing tests to skip upfront setup work if parts of the codebase haven't changed.
+
+## Speeding up how fast all changes can be tested
+
+Engineering teams are reaching the theoretical limit of how fast a single code change can be validated, assuming the validation requirements are to "run all tests and build every code change."
+
+And yet, dev patterns continue to optimize for velocity.
+
+Q: What's faster than running CI on a code change using fast computers, parallel tests, and heavy caching?
+
+A: Skipping running some tests on the change altogether.
+
+In a near regression back to pre-CI days, some high-velocity organizations leverage batching and dependencies between PRs in order to save computing resources and give engineers feedback faster. At Graphite, we see this happening in two areas. The first is in company merge queues. Internal merge queues at large companies like Uber offer batching and skipping of test execution. The premise is that if you enforce an order to code changes, you no longer *need* to test every change in the queue as rigorously as before - though there are some downsides.
+
+> Chromium uses a variant of this approach called Commit Queue to ensure an always green mainline… Changes passing the first step are picked every few hours by the second step to undergo a large suite of tests which typically take around four hours. If the build breaks at this stage, the entire batch gets rejected. Build sheriffs and their deputies spring into action at this point to attribute failures to particular faulty changes… Finally, observe that this approach leads to shippable batches, and not shippable commits.
+
+The second place where CI can be skipped is in stacked code changes - popularized by Facebook. If the developer stacks a series of small pull requests, they're implicitly describing a required order of merging those changes. Like in a merge queue, CI can be batched up the stack of changes and bisected if any failures are found. Failures at the bottom of the stack can notify developers before even starting the execution of changes upstack.
+
+While test dependency graphs had previously offered early failures and saved compute while testing a single change, dependency graphs across many different PRs can create the same gains. Saved compute time is meaningful because while cloud resources offer infinitely horizontal scalability, spending on testing can be as high as 10-20% of companies' total cloud cost spend.
+
+## Testing faster than running code
+
+The fastest form of CI testing I'm currently aware of involves batching the testing of many changes at once while also parallelizing and caching as much as possible.
+
+Before batched execution of integration tests however, we had humans reviewing code changes by hand - sometimes pouring over printouts on a table, looking for mistakes. We moved away from this pattern of verification because machines could execute code faster than humans could read and reason about it.
+
+That equation might be close to changing with the advent of large language models. I suspect we may be on the cusp of fast, cheap, AI code review. Previously, I said there were only three ways to speed up computing - faster chips, parallelization, or caching. Technically, there's a fourth option if you're willing to accept some fuzzy results - probabilistically predicting the output. (Fun fact: CPUs already do this today).
+
+While it might not replace unit tests and human review, AI code review *might* be able to scan diffs for common mistakes in ten seconds or less. It could flag linter concerns, misaligned patterns in the codebase, spelling mistakes, and other forms of errors. Existing CI coordinators might trigger the AI review and return faster than other test results. Alternatively, AI review might become so fast and cheap that it begins running passively in engineers' editors, not unlike CoPilot. Unlike traditional CI tests, AI Review doesn't require completeness before it can scan for issues.
+
+Will we ever see AI-style tests catch on? Unclear, but companies are already trying in the space. If AI reviews ever get good enough to catch on, it might just become another tech example of "what's old is new."
+
