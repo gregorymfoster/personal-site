@@ -75,16 +75,6 @@ export default async function Home() {
         , where I obsess about the future of code review and code collaboration broadly.
       </p>
       <section>
-        <h2>Lore</h2>
-        <ul className="link-list">
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/writing/${post.slug}`}>{post.title}</Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section>
         <h2>Some things I wrote</h2>
         <ul className="link-list">
           <li>
@@ -141,6 +131,16 @@ export default async function Home() {
               Are you having any fun?
             </a>
           </li>
+        </ul>
+      </section>
+      <section>
+        <h2>Lore</h2>
+        <ul className="link-list">
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/writing/${post.slug}`}>{post.title}</Link>
+            </li>
+          ))}
         </ul>
       </section>
       <section>
