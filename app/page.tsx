@@ -106,11 +106,13 @@ export default async function Home() {
       <section>
         <h2>Lore</h2>
         <ul className="link-list">
-          {posts.map((post) => (
-            <li key={post.slug}>
-              <Link href={`/writing/${post.slug}`}>{post.title}</Link>
-            </li>
-          ))}
+          {posts
+            .filter((post) => ['how-i-learned-to-code', 'campus-cutie-2017'].includes(post.slug))
+            .map((post) => (
+              <li key={post.slug}>
+                <Link href={`/writing/${post.slug}`}>{post.title}</Link>
+              </li>
+            ))}
         </ul>
       </section>
       <section>
