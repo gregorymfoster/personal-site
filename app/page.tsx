@@ -77,37 +77,33 @@ export default async function Home() {
       <section>
         <h2>Some things I wrote</h2>
         <ul className="link-list">
-          <li>
-            <Link href="/writing/three-rules-for-naming-projects">
-              Three rules for naming projects
-            </Link>
-          </li>
-          <li>
-            <Link href="/writing/invention-of-modern-ci">
-              From the 80's to 2024 - how CI tests were invented and optimized
-            </Link>
-          </li>
-          <li>
-            <Link href="/writing/why-facebook-doesnt-use-git">Why Facebook doesn't use Git</Link>
-          </li>
-          <li>
-            <Link href="/writing/github-monopoly-on-code-hosting">
-              GitHub's monopoly on code hosting
-            </Link>
-          </li>
-          <li>
-            <Link href="/writing/onboarding-roulette">Onboarding roulette</Link>
-          </li>
-          <li>
-            <Link href="/writing/are-you-having-any-fun">Are you having any fun?</Link>
-          </li>
+          {posts
+            .filter((post) =>
+              [
+                'three-rules-for-naming-projects',
+                'invention-of-modern-ci',
+                'why-facebook-doesnt-use-git',
+                'github-monopoly-on-code-hosting',
+                'onboarding-roulette',
+                'are-you-having-any-fun',
+              ].includes(post.slug)
+            )
+            .map((post) => (
+              <li key={post.slug}>
+                <Link href={`/writing/${post.slug}`}>{post.title}</Link>
+              </li>
+            ))}
         </ul>
       </section>
       <section>
-        <h2>Lore</h2>
+        <h2>Reflections</h2>
         <ul className="link-list">
           {posts
-            .filter((post) => ['how-i-learned-to-code', 'campus-cutie-2017'].includes(post.slug))
+            .filter((post) =>
+              ['how-i-learned-to-code', 'campus-cutie-2017', 'starting-graphite'].includes(
+                post.slug
+              )
+            )
             .map((post) => (
               <li key={post.slug}>
                 <Link href={`/writing/${post.slug}`}>{post.title}</Link>
