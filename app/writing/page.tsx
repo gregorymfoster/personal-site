@@ -27,8 +27,58 @@ export const metadata: Metadata = {
 export default async function WritingPage() {
   const posts = await getBlogPosts();
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Writing',
+        item: `${baseUrl}/writing`,
+      },
+    ],
+  };
+
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Writing - Greg Foster',
+    description: 'Essays and reflections on code, startups, and learning.',
+    url: `${baseUrl}/writing`,
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: posts.length,
+      itemListElement: posts.map((post, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: `${baseUrl}/writing/${post.slug}`,
+        name: post.title,
+      })),
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Greg Foster',
+      url: baseUrl,
+    },
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <nav className="breadcrumb">
         <Link href="/">Home</Link>
       </nav>

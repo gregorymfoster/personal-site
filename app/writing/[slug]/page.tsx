@@ -39,6 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       siteName: 'Greg Foster',
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: ['Greg Foster'],
       images: [
         {
           url: `${baseUrl}/opengraph-image`,
@@ -52,6 +54,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: 'summary_large_image',
       creator: '@gregmfoster',
       site: '@gregmfoster',
+    },
+    other: {
+      'article:author': 'Greg Foster',
+      'article:published_time': post.date,
+      'article:modified_time': post.date,
     },
   };
 }
@@ -83,6 +90,13 @@ export default async function BlogPost({ params }: PageProps) {
       '@type': 'Person',
       name: 'Greg Foster',
       url: baseUrl,
+      jobTitle: 'Cofounder',
+      worksFor: {
+        '@type': 'Organization',
+        name: 'Graphite',
+        url: 'https://graphite.dev',
+      },
+      sameAs: ['https://twitter.com/gregmfoster', 'https://github.com/gregmfoster'],
     },
     publisher: {
       '@type': 'Person',
@@ -96,11 +110,40 @@ export default async function BlogPost({ params }: PageProps) {
     },
   };
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Writing',
+        item: `${baseUrl}/writing`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: postUrl,
+      },
+    ],
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       <nav className="breadcrumb">
         <Link href="/">Home</Link> › <Link href="/writing">Writing</Link>

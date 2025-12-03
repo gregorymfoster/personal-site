@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   alternates: {
     canonical: baseUrl,
+    types: {
+      'application/rss+xml': [{ url: '/feed.xml', title: 'Greg Foster RSS Feed' }],
+    },
   },
   openGraph: {
     title: 'Greg Foster',
@@ -39,6 +42,31 @@ export const metadata: Metadata = {
   },
 };
 
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Greg Foster',
+  url: 'https://gmfoster.com',
+  jobTitle: 'Cofounder',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Graphite',
+    url: 'https://graphite.dev',
+  },
+  sameAs: ['https://twitter.com/gregmfoster', 'https://github.com/gregmfoster'],
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Greg Foster',
+  url: 'https://gmfoster.com',
+  author: {
+    '@type': 'Person',
+    name: 'Greg Foster',
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -46,6 +74,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
       <body suppressHydrationWarning>
         <main>{children}</main>
         <Analytics />
