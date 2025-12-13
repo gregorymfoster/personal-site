@@ -80,6 +80,7 @@ export default async function Home() {
           {posts
             .filter((post) =>
               [
+                'founder-dissonances',
                 'three-rules-for-naming-projects',
                 'invention-of-modern-ci',
                 'why-facebook-doesnt-use-git',
