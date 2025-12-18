@@ -11,7 +11,7 @@ export interface BlogPost {
   content: string;
 }
 
-export async function getBlogPosts(): Promise<BlogPost[]> {
+export async function getBlogPosts(excludeSlugs: string[] = []): Promise<BlogPost[]> {
   if (!fs.existsSync(contentDirectory)) {
     return [];
   }
@@ -37,6 +37,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       };
     })
     .filter((post): post is BlogPost => post !== null)
+    .filter((post) => !excludeSlugs.includes(post.slug))
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   return posts;

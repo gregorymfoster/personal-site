@@ -17,7 +17,7 @@ function formatRssDate(dateStr: string): string {
 }
 
 export async function GET() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts(['campus-cutie-2017']);
 
   const rssItems = posts
     .map(

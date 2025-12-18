@@ -16,7 +16,7 @@ function getPostPriority(postDate: string): number {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts(['campus-cutie-2017']);
   const baseUrl = 'https://gmfoster.com';
 
   const blogPosts = posts.map((post) => ({

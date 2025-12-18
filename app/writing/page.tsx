@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 export default async function WritingPage() {
-  const posts = await getBlogPosts();
+  const posts = await getBlogPosts(['campus-cutie-2017']);
 
   const breadcrumbSchema = {
     '@context': 'https://schema.org',

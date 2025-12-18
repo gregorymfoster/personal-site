@@ -100,11 +100,7 @@ export default async function Home() {
         <h2>Reflections</h2>
         <ul className="link-list">
           {posts
-            .filter((post) =>
-              ['how-i-learned-to-code', 'campus-cutie-2017', 'starting-graphite'].includes(
-                post.slug
-              )
-            )
+            .filter((post) => ['how-i-learned-to-code', 'starting-graphite'].includes(post.slug))
             .map((post) => (
               <li key={post.slug}>
                 <Link href={`/writing/${post.slug}`}>{post.title}</Link>
