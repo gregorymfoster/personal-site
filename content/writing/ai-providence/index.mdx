@@ -26,7 +26,7 @@ I'm not talking about philosophical provenance. I mean the practical stuff you w
 
 For a given commit, I want to know: What was the original intent? What problem was I trying to solve? What plan did the agent propose, and what got rejected? What model and tools were used? Were there migrations, scripts, benchmarks involved? What tradeoffs did we consciously accept? What parts were me steering versus the agent driving?
 
-If you've ever looked at a piece of code and thought, "This is odd. Why is it like this?"—you understand the value. Today you go spelunking through Slack, Linear, email, PR comments, or you ask a teammate who might not remember. Tomorrow, the best answer might be sitting right next to the code, waiting to be summarized.
+If you've ever looked at a piece of code and thought, "This is odd. Why is it like this?" - you understand the value. Today you go spelunking through Slack, Linear, email, PR comments, or you ask a teammate who might not remember. Tomorrow, the best answer might be sitting right next to the code, waiting to be summarized.
 
 The core insight is this: as codegen becomes normal, "how this code was produced" becomes part of the artifact.
 
@@ -42,7 +42,7 @@ The question is: what's the simplest storage pattern that could actually catch o
 
 There are two failure modes I'm trying to avoid.
 
-First, hidden metadata. Git notes are powerful—you can attach arbitrary blobs to commits. Elegant. But it disappears in practice because most people don't fetch notes by default, many UIs don't show them, and you need extra plumbing to push and pull them. "Remember to configure your notes ref" is not the vibe for a convention that spreads across teams and tools.
+First, hidden metadata. Git notes are powerful - you can attach arbitrary blobs to commits. Elegant. But it disappears in practice because most people don't fetch notes by default, many UIs don't show them, and you need extra plumbing to push and pull them. "Remember to configure your notes ref" is not the vibe for a convention that spreads across teams and tools.
 
 Second, heavy schema on day one. If the whole thing requires a perfect JSON schema, a bespoke viewer, and a database of tool events, it won't ship. People will debate it forever, then do nothing. I want this to feel like something you could adopt on a Friday afternoon without asking permission.
 
@@ -112,7 +112,7 @@ Together: the trailer is the standardized pointer, the `.ai/` file is the human 
 
 ---
 
-I think there's room for an industry convention here. Not a heavy "AI provenance standard committee" thing—just a couple of trailer keys that multiple tools agree on, and a boring folder name that doesn't make people roll their eyes.
+I think there's room for an industry convention here. Not a heavy "AI provenance standard committee" thing - just a couple of trailer keys that multiple tools agree on, and a boring folder name that doesn't make people roll their eyes.
 
 If you're building a codegen tool, this is a way to earn trust. Don't just generate code. Leave a trail. Make it inspectable. Make it portable. Give teams a way to understand what happened without depending on your backend.
 
