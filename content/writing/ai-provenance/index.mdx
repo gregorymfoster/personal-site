@@ -1,12 +1,12 @@
 ---
-title: AI Providence Belongs in Git
+title: AI Provenance Belongs in Git
 date: 2026-01-16
 description: Storing the history behind AI-generated code in a simple sidecar folder.
 ---
 
-It's very interesting to know not just what code does, but why and how it was created. The context behind it. A fancy word for this is _providence_ - I use it because "context" is overloaded.
+It's very interesting to know not just what code does, but why and how it was created. The context behind it. A fancy word for this is _provenance_ - I use it because "context" is overloaded.
 
-The providence of the code.
+The provenance of the code.
 
 ## How we've captured this before
 
@@ -22,13 +22,13 @@ As we move to a new world, AI agents can read it all. They can read the history.
 
 So the value of descriptions - even if unorganized and chaotic with typos - the value _increases_. The more context we can feed into the codebase, the smarter our tools become.
 
-This flips the old equation. Writing providence used to be generous. Now it's strategic.
+This flips the old equation. Writing provenance used to be generous. Now it's strategic.
 
-## What does providence look like when AI writes the code?
+## What does provenance look like when AI writes the code?
 
-Here's the question I keep thinking about: what do descriptions and providence look like in the world of AI agents, when so many code changes are being written by AI?
+Here's the question I keep thinking about: what do descriptions and provenance look like in the world of AI agents, when so many code changes are being written by AI?
 
-There's an amazing opportunity here. We can feed the providence - the chats, the models, the tools, the chat histories - into the Git history itself. It's the evolution of the commit message and the PR description. I think we can do a step better.
+There's an amazing opportunity here. We can feed the provenance - the chats, the models, the tools, the chat histories - into the Git history itself. It's the evolution of the commit message and the PR description. I think we can do a step better.
 
 ## A sidecar folder
 
@@ -37,7 +37,7 @@ There are different ways you could do this. You could use Git notes, but nobody 
 But I think the most valuable approach is simpler: a sidecar folder.
 
 ```
-.providence/
+.provenance/
   auth-refactor.md
   rate-limiting.md
   search-performance.md
@@ -45,11 +45,11 @@ But I think the most valuable approach is simpler: a sidecar folder.
 
 Markdown files. Human-readable. Agent-readable. Committed alongside the code they describe.
 
-I'm still on the fence about naming. My first instinct was to name files by commit SHA - but then I realized: if you commit the providence file in the same breath as the code change, Git already tracks that association. The file's own history tells you which commits it relates to.
+I'm still on the fence about naming. My first instinct was to name files by commit SHA - but then I realized: if you commit the provenance file in the same breath as the code change, Git already tracks that association. The file's own history tells you which commits it relates to.
 
 This opens up a different pattern. Instead of one file per commit, you could have one file per _concept_. A file like `auth-refactor.md` that gets updated across multiple commits as the work evolves. You can link it to specific commits in the content if you want, but you don't have to encode the SHA in the filename.
 
-I'm also uncertain about the folder name. `.ai`? `.providence`? `.context`? Not sure yet. The general idea matters more than the specific convention.
+I'm also uncertain about the folder name. `.ai`? `.provenance`? `.context`? Not sure yet. The general idea matters more than the specific convention.
 
 What goes in these files? A lot of textual notes. Maybe the chat thread. Maybe a summarization of the chat thread. Maybe just the plan. We can leave it open-ended.
 
@@ -59,13 +59,13 @@ One thing I love about AI is that these files can be extremely low-format and fl
 
 When AI searches the codebase - RAG, codebase search, whatever - it can associate commits not just with _what_ was created, but with _how_ it came into being. What was the thought process? What alternatives were rejected? Why this approach?
 
-By putting providence in actual files, humans can browse them too. You can put them in a dotfolder so they're somewhat hidden, but they're still files that anyone can open and read. Both humans and agents. There's value in that.
+By putting provenance in actual files, humans can browse them too. You can put them in a dotfolder so they're somewhat hidden, but they're still files that anyone can open and read. Both humans and agents. There's value in that.
 
 And by using a dotfolder, we can establish patterns around discovery. Tools could automatically find and render these folders. Systems could adopt this convention.
 
 ## On bloat
 
-Yes, this adds files to the repo. If these providence files are large, clones get slower.
+Yes, this adds files to the repo. If these provenance files are large, clones get slower.
 
 But I'm optimistic. Bloat in Git is not the biggest issue in the world. Disks are getting bigger. Internet is getting faster. We can handle it.
 
@@ -75,8 +75,8 @@ And here's the beautiful thing: if the files get too big, you can always send AI
 
 I've been really impressed with how some AI coding conventions work: just a folder path and markdown files. That's it. No schema registry. No special tooling. A pattern anyone can adopt.
 
-I'd like to extend this to providence. A dotfolder. Markdown files with whatever names make sense. Write whatever context you want. Let it get indexed alongside the code.
+I'd like to extend this to provenance. A dotfolder. Markdown files with whatever names make sense. Write whatever context you want. Let it get indexed alongside the code.
 
-The specifics - folder name, file naming convention, what exactly to include - can evolve. The core idea is getting providence history into the codebase in unstructured markdown files that both humans and agents can read.
+The specifics - folder name, file naming convention, what exactly to include - can evolve. The core idea is getting provenance history into the codebase in unstructured markdown files that both humans and agents can read.
 
-As more code originates from conversations with AI, the conversation becomes part of the artifact. Git is where we keep artifacts. Providence belongs there too.
+As more code originates from conversations with AI, the conversation becomes part of the artifact. Git is where we keep artifacts. Provenance belongs there too.
