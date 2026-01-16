@@ -17,12 +17,12 @@ describe('Home Page', () => {
     expect(heading).toBeTruthy();
   });
 
-  it('should display the Lore section', async () => {
+  it('should display the Reflections section', async () => {
     const Component = await Home();
     render(Component);
 
-    const loreHeading = screen.getByRole('heading', { name: /Lore/i });
-    expect(loreHeading).toBeTruthy();
+    const reflectionsHeading = screen.getByRole('heading', { name: /Reflections/i });
+    expect(reflectionsHeading).toBeTruthy();
   });
 
   it('should render blog post links', async () => {
