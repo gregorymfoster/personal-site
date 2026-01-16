@@ -77,35 +77,11 @@ export default async function Home() {
       <section>
         <h2>Some things I wrote</h2>
         <ul className="link-list">
-          {posts
-            .filter((post) =>
-              [
-                'founder-dissonances',
-                'three-rules-for-naming-projects',
-                'invention-of-modern-ci',
-                'why-facebook-doesnt-use-git',
-                'github-monopoly-on-code-hosting',
-                'onboarding-roulette',
-                'are-you-having-any-fun',
-              ].includes(post.slug)
-            )
-            .map((post) => (
-              <li key={post.slug}>
-                <Link href={`/writing/${post.slug}`}>{post.title}</Link>
-              </li>
-            ))}
-        </ul>
-      </section>
-      <section>
-        <h2>Reflections</h2>
-        <ul className="link-list">
-          {posts
-            .filter((post) => ['how-i-learned-to-code', 'starting-graphite'].includes(post.slug))
-            .map((post) => (
-              <li key={post.slug}>
-                <Link href={`/writing/${post.slug}`}>{post.title}</Link>
-              </li>
-            ))}
+          {posts.map((post) => (
+            <li key={post.slug}>
+              <Link href={`/writing/${post.slug}`}>{post.title}</Link>
+            </li>
+          ))}
         </ul>
       </section>
       <section>
