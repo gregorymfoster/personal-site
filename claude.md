@@ -6,6 +6,100 @@ This is a minimal personal website with a blog, built for simplicity and perform
 
 A static personal website with MDX-powered blog posts, designed with a clean aesthetic inspired by nat.org and rauchg.com. The site is optimized for Vercel deployment and emphasizes fast load times, clean typography, and minimal dependencies.
 
+## Writing Style Guide
+
+This section defines the voice, tone, and structure for all blog posts. Follow these patterns when writing or editing content.
+
+### Voice & Tone
+
+**First-person, conversational.** Write like you're explaining something to a smart friend over coffee. Not academic, not corporate, not performative.
+
+**Personal and specific.** Ground abstract ideas in concrete experience. Name people, companies, tools. Say "When I was at Airbnb..." not "In my experience at large tech companies..."
+
+**Opinionated but not preachy.** Share strong views, but acknowledge uncertainty. Phrases like "I think", "I suspect", "I'm on the fence about" are good. Avoid lecturing.
+
+**Self-aware, occasionally self-deprecating.** Acknowledge your own limitations ("I'm dyslexic", "I was the only one wearing a suit"). Don't take yourself too seriously.
+
+**Direct.** Short declarative sentences. Say what you mean. "Git was slow. Not cripplingly slow, but slow enough to investigate."
+
+### Structure
+
+**Open with a hook or personal context.** Don't start with an abstract thesis. Start with a story, a question, or a concrete observation.
+
+Good: "I moved homes every three years growing up because my father worked in manufacturing."
+Good: "It's very interesting to know not just what code does, but why and how it was created."
+Bad: "In this post, I will explore the concept of..."
+Bad: "Software development has many challenges..."
+
+**Use ## headers to break up longer pieces.** Headers should be short - questions or declarative statements work well. They help readers scan and provide natural breathing room.
+
+**Keep paragraphs short.** Rarely more than 3-4 sentences. Single-sentence paragraphs are fine for emphasis.
+
+**Ground abstract ideas in history or story.** Before proposing something new, trace how we got here. Technical posts often work as "here's the history, here's what's missing, here's an idea."
+
+**End with reflection, not summary.** Don't recap. Either look forward, acknowledge uncertainty, or land on a memorable closing thought.
+
+### Formatting Conventions
+
+**Italics:** Use `_underscores_` for emphasis, not `*asterisks*`.
+
+**Parenthetical asides:** Use spaced hyphens, not em dashes.
+- Good: "the value - even if chaotic - increases"
+- Bad: "the value—even if chaotic—increases"
+
+**Blockquotes:** Use for external sources, quotes from others, or to set apart key statements.
+
+**Code blocks:** Use for technical examples. Keep them short and purposeful.
+
+**Images:** Include when they add value (screenshots, diagrams). Always add alt text. Format: `![Description](/images/filename.png)`
+
+**Links:** Embed naturally in text. Don't say "click here" - make the linked text meaningful.
+
+**Lists:** Use sparingly. Prose is usually better. Lists work for:
+- Rules or criteria (like "Three Rules for Naming Projects")
+- Timelines
+- Quick examples
+
+### What to Avoid
+
+**Corporate speak.** No "leverage", "synergy", "at the end of the day", "it goes without saying."
+
+**Marketing language.** No hype, no superlatives, no "revolutionary" or "game-changing."
+
+**Over-hedging.** Don't qualify every statement. Have opinions.
+
+**Bullet-point listicles.** This isn't a Medium growth-hack article.
+
+**Clickbait.** Titles should be clear and honest, not sensational.
+
+**Excessive formality.** No "one might argue" or "it is worth noting that."
+
+**Emojis in prose.** Occasionally fine in titles or special contexts, but generally avoid.
+
+### Example Patterns
+
+**Opening a technical history piece:**
+> I've been writing code since high school. I have faint memories of creating an Android game with a friend using Tortoise SVM to share code. At college, I learned to clone GitHub repos...
+
+**Expressing uncertainty:**
+> I'm still on the fence about naming. My first instinct was to name files by commit SHA - but then I realized...
+
+**Making a strong claim with nuance:**
+> Founders say one thing and do another. Almost all of us. Not because we're liars, but because certain things sound right to investors, candidates, customers, and competitors.
+
+**Ending a piece:**
+> As more code originates from conversations with AI, the conversation becomes part of the artifact. Git is where we keep artifacts. Providence belongs there too.
+
+### Content Themes
+
+The blog covers:
+- **Developer tools and workflows** - Git, code review, CI/CD, stacked diffs
+- **Startup building** - founding Graphite, company culture, founder psychology
+- **Personal stories** - how I learned to code, college experiences, career path
+- **Technical history** - how tools evolved, why things are the way they are
+
+Posts often blend multiple themes. A technical history piece might include personal anecdotes. A startup culture piece might reference technical decisions.
+
 ## Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
