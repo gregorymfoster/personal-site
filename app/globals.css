@@ -275,6 +275,29 @@ section h2 {
   margin-bottom: 0.75em;
 }
 
+.site-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 2em;
+}
+
+.site-list li {
+  margin-bottom: 1.5em;
+}
+
+.site-list a {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.site-description {
+  color: #57606a;
+  font-size: 0.95em;
+  margin-top: 0.25em;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
 @media (max-width: 640px) {
   html,
   body {
