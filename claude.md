@@ -44,6 +44,7 @@ Bad: "Software development has many challenges..."
 **Italics:** Use `_underscores_` for emphasis, not `*asterisks*`.
 
 **Parenthetical asides:** Use spaced hyphens, not em dashes.
+
 - Good: "the value - even if chaotic - increases"
 - Bad: "the value—even if chaotic—increases"
 
@@ -56,11 +57,14 @@ Bad: "Software development has many challenges..."
 **Links:** Embed naturally in text. Don't say "click here" - make the linked text meaningful.
 
 **Lists:** Use sparingly. Prose is usually better. Lists work for:
+
 - Rules or criteria (like "Three Rules for Naming Projects")
 - Timelines
 - Quick examples
 
 ### What to Avoid
+
+**Em dashes.** Never use em dashes (—) under any circumstances. Use spaced hyphens instead: "the value - even if chaotic - increases" not "the value—even if chaotic—increases". This is non-negotiable.
 
 **Corporate speak.** No "leverage", "synergy", "at the end of the day", "it goes without saying."
 
@@ -79,20 +83,25 @@ Bad: "Software development has many challenges..."
 ### Example Patterns
 
 **Opening a technical history piece:**
+
 > I've been writing code since high school. I have faint memories of creating an Android game with a friend using Tortoise SVM to share code. At college, I learned to clone GitHub repos...
 
 **Expressing uncertainty:**
+
 > I'm still on the fence about naming. My first instinct was to name files by commit SHA - but then I realized...
 
 **Making a strong claim with nuance:**
+
 > Founders say one thing and do another. Almost all of us. Not because we're liars, but because certain things sound right to investors, candidates, customers, and competitors.
 
 **Ending a piece:**
+
 > As more code originates from conversations with AI, the conversation becomes part of the artifact. Git is where we keep artifacts. Providence belongs there too.
 
 ### Content Themes
 
 The blog covers:
+
 - **Developer tools and workflows** - Git, code review, CI/CD, stacked diffs
 - **Startup building** - founding Graphite, company culture, founder psychology
 - **Personal stories** - how I learned to code, college experiences, career path
@@ -142,23 +151,27 @@ lib/
 ## Design System
 
 ### Typography
+
 - **Font**: System fonts (-apple-system stack)
 - **Base size**: 16px
 - **Line height**: 1.6 (body), 1.2-1.3 (headings)
 - **Font weights**: 400 (regular), 600 (headings)
 
 ### Layout
+
 - **Max width**: 650px (centered)
 - **Padding**: 20px horizontal, 50px top margin
 - **Spacing**: Generous whitespace between elements
 
 ### Colors
+
 - **Text**: #000 (primary), #666 (secondary), #333 (tertiary)
 - **Background**: #fff
 - **Links**: #0070f3 (blue)
 - **Code background**: #f5f5f5
 
 ### Design Philosophy
+
 Keep it simple. No animations, no complex layouts, no unnecessary JavaScript. The design should get out of the way and let the content shine.
 
 ## Development Conventions
@@ -181,11 +194,13 @@ Keep it simple. No animations, no complex layouts, no unnecessary JavaScript. Th
    - Given proper SEO metadata
 
 ### File Naming
+
 - Blog posts: `kebab-case.mdx` (e.g., `hello-world.mdx`)
 - Components: `PascalCase.tsx`
 - Utilities: `camelCase.ts`
 
 ### Code Style
+
 - Use Biome for formatting (configured in `biome.json`)
 - 2-space indentation
 - Single quotes for strings
@@ -193,6 +208,7 @@ Keep it simple. No animations, no complex layouts, no unnecessary JavaScript. Th
 - ES5 trailing commas
 
 ### TypeScript
+
 - Strict mode enabled
 - Explicit return types for public functions
 - Use Next.js types (`Metadata`, `MetadataRoute`, etc.)
@@ -203,12 +219,14 @@ Keep it simple. No animations, no complex layouts, no unnecessary JavaScript. Th
 ### Blog Post Utilities (`lib/mdx.ts`)
 
 **`getBlogPosts()`**
+
 - Reads all `.mdx` files from `content/blog/`
 - Extracts frontmatter metadata
 - Returns sorted array (newest first)
 - Used by: blog listing page, sitemap
 
 **`getBlogPost(slug: string)`**
+
 - Reads single blog post by slug
 - Returns post data or null
 - Used by: individual blog post pages
@@ -216,35 +234,41 @@ Keep it simple. No animations, no complex layouts, no unnecessary JavaScript. Th
 ### Metadata Conventions
 
 Every page should export:
+
 - `metadata` object (for SEO, Open Graph)
 - `generateMetadata()` function for dynamic pages
 
 Example:
+
 ```typescript
 export const metadata: Metadata = {
-  title: 'Page Title',
-  description: 'Page description',
+  title: "Page Title",
+  description: "Page description",
 };
 ```
 
 ## Common Tasks
 
 ### Update Personal Information
+
 - **Name & bio**: `app/page.tsx`
 - **Site metadata**: `app/layout.tsx` (lines 4-18)
 - **Base URL**: Update in `app/sitemap.ts` and `app/robots.ts`
 
 ### Add New Page
+
 1. Create `app/new-page/page.tsx`
 2. Add to sitemap in `app/sitemap.ts`
 3. Link from home page or navigation
 
 ### Modify Styles
+
 - Global styles: `app/globals.css`
 - Keep changes minimal and purposeful
 - Test mobile responsiveness (320px - 1920px)
 
 ### Deploy
+
 1. Push to GitHub
 2. Import in Vercel (or run `vercel` CLI)
 3. Vercel auto-detects Next.js and Node.js 22 (from `.nvmrc`)
@@ -262,6 +286,7 @@ npm run format   # Auto-format with Biome
 ## Important Notes
 
 ### What NOT to Do
+
 - Don't add CSS frameworks (Tailwind, Bootstrap, etc.) - defeats the minimal purpose
 - Don't add complex state management - this is a static site
 - Don't add analytics without user consent mechanisms
@@ -269,11 +294,13 @@ npm run format   # Auto-format with Biome
 - Don't create pages in `pages/` directory - this uses App Router only
 
 ### Performance Targets
+
 - First Load JS: < 110 kB per page
 - Lighthouse Score: 95+ for all metrics
 - All pages should be static (○ or ●, not λ)
 
 ### SEO Checklist
+
 - Every page has unique `title` and `description`
 - Open Graph tags for social sharing
 - Sitemap includes all pages
@@ -283,16 +310,19 @@ npm run format   # Auto-format with Biome
 ## Troubleshooting
 
 **Build fails with MDX errors**
+
 - Check frontmatter format (must be valid YAML)
 - Ensure closing `---` in frontmatter
 - Verify no special characters in filenames
 
 **Styles not applying**
+
 - Check `globals.css` is imported in `layout.tsx`
 - Verify CSS selectors match HTML structure
 - Clear `.next` cache: `rm -rf .next && npm run build`
 
 **Blog posts not appearing**
+
 - Ensure files are in `content/blog/` directory
 - Check `.mdx` extension (not `.md`)
 - Verify frontmatter has required fields
@@ -300,6 +330,7 @@ npm run format   # Auto-format with Biome
 ## Future Enhancements (Potential)
 
 If the user requests them:
+
 - RSS feed generation
 - Reading time estimates
 - Tag/category system for blog posts
