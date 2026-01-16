@@ -4,13 +4,13 @@ date: 2026-01-16
 description: Storing the history behind AI-generated code in a simple sidecar folder.
 ---
 
-It's very interesting to know not just what code does, but why and how it was created. The context behind it. A fancy word for this is _providence_ — I use it because "context" is overloaded.
+It's very interesting to know not just what code does, but why and how it was created. The context behind it. A fancy word for this is _providence_ - I use it because "context" is overloaded.
 
 The providence of the code.
 
 ## How we've captured this before
 
-Historically, we've had a few techniques. Git log. PR descriptions. The best PR descriptions say many things, but they say one thing clearly: _why_ this code change was created. In a perfect world, they'd also describe how it came into existence—what conversations were had, what thought patterns were explored.
+Historically, we've had a few techniques. Git log. PR descriptions. The best PR descriptions say many things, but they say one thing clearly: _why_ this code change was created. In a perfect world, they'd also describe how it came into existence-what conversations were had, what thought patterns were explored.
 
 PR descriptions often get squashed and merged into the commit message, which is good. That's the durable layer.
 
@@ -20,7 +20,7 @@ But we also know that most engineers are a little lazy about writing really good
 
 As we move to a new world, AI agents can read it all. They can read the history. They can read all the context. They can read every description you leave.
 
-So the value of descriptions—even if unorganized and chaotic with typos—the value _increases_. The more context we can feed into the codebase, the smarter our tools become.
+So the value of descriptions-even if unorganized and chaotic with typos-the value _increases_. The more context we can feed into the codebase, the smarter our tools become.
 
 This flips the old equation. Writing providence used to be generous. Now it's strategic.
 
@@ -28,7 +28,7 @@ This flips the old equation. Writing providence used to be generous. Now it's st
 
 Here's the question I keep thinking about: what do descriptions and providence look like in the world of AI agents, when so many code changes are being written by AI?
 
-There's an amazing opportunity here. We can feed the providence—the chats, the models, the tools, the chat histories—into the Git history itself. It's the evolution of the commit message and the PR description. I think we can do a step better.
+There's an amazing opportunity here. We can feed the providence-the chats, the models, the tools, the chat histories-into the Git history itself. It's the evolution of the commit message and the PR description. I think we can do a step better.
 
 ## A sidecar folder
 
@@ -45,7 +45,7 @@ But I think the most valuable approach is simpler: a sidecar folder.
 
 Markdown files. Human-readable. Agent-readable. Committed alongside the code they describe.
 
-I'm still on the fence about naming. My first instinct was to name files by commit SHA—but then I realized: if you commit the providence file in the same breath as the code change, Git already tracks that association. The file's own history tells you which commits it relates to.
+I'm still on the fence about naming. My first instinct was to name files by commit SHA-but then I realized: if you commit the providence file in the same breath as the code change, Git already tracks that association. The file's own history tells you which commits it relates to.
 
 This opens up a different pattern. Instead of one file per commit, you could have one file per _concept_. A file like `auth-refactor.md` that gets updated across multiple commits as the work evolves. You can link it to specific commits in the content if you want, but you don't have to encode the SHA in the filename.
 
@@ -57,7 +57,7 @@ One thing I love about AI is that these files can be extremely low-format and fl
 
 ## Why files matter
 
-When AI searches the codebase—RAG, codebase search, whatever—it can associate commits not just with _what_ was created, but with _how_ it came into being. What was the thought process? What alternatives were rejected? Why this approach?
+When AI searches the codebase-RAG, codebase search, whatever-it can associate commits not just with _what_ was created, but with _how_ it came into being. What was the thought process? What alternatives were rejected? Why this approach?
 
 By putting providence in actual files, humans can browse them too. You can put them in a dotfolder so they're somewhat hidden, but they're still files that anyone can open and read. Both humans and agents. There's value in that.
 
@@ -77,6 +77,6 @@ I've been really impressed with how some AI coding conventions work: just a fold
 
 I'd like to extend this to providence. A dotfolder. Markdown files with whatever names make sense. Write whatever context you want. Let it get indexed alongside the code.
 
-The specifics—folder name, file naming convention, what exactly to include—can evolve. The core idea is getting providence history into the codebase in unstructured markdown files that both humans and agents can read.
+The specifics-folder name, file naming convention, what exactly to include-can evolve. The core idea is getting providence history into the codebase in unstructured markdown files that both humans and agents can read.
 
 As more code originates from conversations with AI, the conversation becomes part of the artifact. Git is where we keep artifacts. Providence belongs there too.
