@@ -6,7 +6,7 @@ description: As code gets written more by talking than typing, the conversation 
 
 I've noticed something funny when I look at my own commits lately.
 
-The code is there. The diff is clean. Tests pass. Ship it. But the way the code got there—that part is increasingly not "me typing." It's me talking.
+The code is there. The diff is clean. Tests pass. Ship it. But the way the code got there-that part is increasingly not "me typing." It's me talking.
 
 A lot of my work now looks like: I describe what I want in a chat thread, an agent proposes a plan, something edits a few files, tests run, fail, run again. I steer it back on track. Eventually the code looks right, I review it, and we commit.
 
@@ -14,13 +14,11 @@ If you squint, it's pairing with a very fast engineer who never sleeps. Except t
 
 And almost all of it vanishes the moment we hit merge.
 
-We've been here before. Pull requests were supposed to be the narrative—why did we do this? What's the context? What did we try? But PR descriptions are usually short. Not because people are lazy, but because it's expensive to write a great one, and even more expensive to read a long one. So we default to the smallest thing that works.
+We've been here before. Pull requests were supposed to be the narrative-why did we do this? What's the context? What did we try? But PR descriptions are usually short. Not because people are lazy, but because it's expensive to write a great one, and even more expensive to read a long one. So we default to the smallest thing that works.
 
 Now the economics changed. AI is extremely willing to write context, and even more willing to read it later.
 
 That creates a weird new opportunity: we can start storing the story of a change, not just the change itself. And the only place that story really belongs is in Git.
-
----
 
 I'm not talking about philosophical provenance. I mean the practical stuff you wish you had six months later.
 
@@ -30,23 +28,17 @@ If you've ever looked at a piece of code and thought, "This is odd. Why is it li
 
 The core insight is this: as codegen becomes normal, "how this code was produced" becomes part of the artifact.
 
----
-
 Why Git? Because it's boring in the best way.
 
 Git is the durable layer. It survives tools, vendors, trends, and reorgs. If provenance lives in a proprietary database owned by whichever codegen tool is popular this year, you're basically renting your own project history. Git is how software teams already coordinate. It's the common substrate. If you want many different agents and tools to read and write provenance, Git is the most neutral place to put it.
 
 The question is: what's the simplest storage pattern that could actually catch on?
 
----
-
 There are two failure modes I'm trying to avoid.
 
 First, hidden metadata. Git notes are powerful - you can attach arbitrary blobs to commits. Elegant. But it disappears in practice because most people don't fetch notes by default, many UIs don't show them, and you need extra plumbing to push and pull them. "Remember to configure your notes ref" is not the vibe for a convention that spreads across teams and tools.
 
 Second, heavy schema on day one. If the whole thing requires a perfect JSON schema, a bespoke viewer, and a database of tool events, it won't ship. People will debate it forever, then do nothing. I want this to feel like something you could adopt on a Friday afternoon without asking permission.
-
----
 
 Here's what I'm proposing: a standardized Git trailer plus a sidecar folder.
 
@@ -62,8 +54,6 @@ AI-Provenance: .ai/commits/a1b2c3d.md
 This advertises that provenance exists. It captures just enough metadata to be interesting. It points to where the real story lives. It works with every existing Git tool. You can search for it in `git log` without special support.
 
 Think of the trailer as the receipt stapled to the bag. The bag itself lives somewhere sane.
-
----
 
 The sidecar is just a folder in the repo:
 
@@ -92,17 +82,13 @@ I like markdown because it's the lingua franca of developer context. Friendly to
 
 A sidecar folder also has a practical benefit: if it gets too big, you can delete it. You can prune, compress, move older provenance to a different branch, decide that only summaries live forever and raw transcripts expire. None of this requires magical Git plumbing.
 
----
-
 Yes, this will bloat repos a little.
 
-But repos already bloat from things we accept because the value is obvious—vendored code, generated files, large test fixtures, images, lockfiles, snapshots. Provenance is another kind of asset. It's not runtime code, but it's operational memory. The question isn't whether it costs bytes. It's whether it pays rent.
+But repos already bloat from things we accept because the value is obvious-vendored code, generated files, large test fixtures, images, lockfiles, snapshots. Provenance is another kind of asset. It's not runtime code, but it's operational memory. The question isn't whether it costs bytes. It's whether it pays rent.
 
 My bet: even a short summary pays rent quickly. The first time you avoid redoing work because an old `.ai` file tells you "we tried X, it failed because Y," you're ahead.
 
-You also don't need to store everything. I'm not advocating for dumping full chat logs by default—those can contain secrets, customer data, random paste bombs. Store the summary. Store the plan. Store the key decisions. If you store raw transcripts, do it intentionally, with redaction and retention rules.
-
----
+You also don't need to store everything. I'm not advocating for dumping full chat logs by default-those can contain secrets, customer data, random paste bombs. Store the summary. Store the plan. Store the key decisions. If you store raw transcripts, do it intentionally, with redaction and retention rules.
 
 If you only do the `.ai/` folder, tools still have to guess which file corresponds to which commit. Doable, but less clean.
 
@@ -110,18 +96,14 @@ If you only do trailers, you have discovery but no story.
 
 Together: the trailer is the standardized pointer, the `.ai/` file is the human and agent readable narrative. One is the index. The other is the content. Both are dead simple.
 
----
-
 I think there's room for an industry convention here. Not a heavy "AI provenance standard committee" thing - just a couple of trailer keys that multiple tools agree on, and a boring folder name that doesn't make people roll their eyes.
 
 If you're building a codegen tool, this is a way to earn trust. Don't just generate code. Leave a trail. Make it inspectable. Make it portable. Give teams a way to understand what happened without depending on your backend.
 
 If you're running a team, this is a way to build actual memory. Not in someone's head. Not in Slack. In the repo, where it belongs.
 
----
-
 As code gets written more by talking than typing, the conversation becomes part of the work product.
 
 Git is where we keep the work product.
 
-So yes—AI provenance belongs in Git. Not hidden, not fancy. Just a small, readable trail next to the code, waiting for the next human or agent to ask, "Why is it like this?" and get a real answer.
+So yes-AI provenance belongs in Git. Not hidden, not fancy. Just a small, readable trail next to the code, waiting for the next human or agent to ask, "Why is it like this?" and get a real answer.
