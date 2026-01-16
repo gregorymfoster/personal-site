@@ -1,109 +1,82 @@
 ---
-title: AI Provenance Belongs in Git
+title: AI Providence Belongs in Git
 date: 2026-01-16
-description: As code gets written more by talking than typing, the conversation becomes part of the work product. A proposal for storing AI provenance in Git using commit trailers and sidecar files.
+description: Storing the history behind AI-generated code in a simple sidecar folder.
 ---
 
-I've noticed something funny when I look at my own commits lately.
+It's very interesting to know not just what code does, but why and how it was created. The context behind it. A fancy word for this is _providence_ — I use it because "context" is overloaded.
 
-The code is there. The diff is clean. Tests pass. Ship it. But the way the code got there-that part is increasingly not "me typing." It's me talking.
+The providence of the code.
 
-A lot of my work now looks like: I describe what I want in a chat thread, an agent proposes a plan, something edits a few files, tests run, fail, run again. I steer it back on track. Eventually the code looks right, I review it, and we commit.
+## How we've captured this before
 
-If you squint, it's pairing with a very fast engineer who never sleeps. Except the conversation is often more important than the final diff. That conversation contains the intent, the constraints, the little "no, not like that" moments that shape the outcome.
+Historically, we've had a few techniques. Git log. PR descriptions. The best PR descriptions say many things, but they say one thing clearly: _why_ this code change was created. In a perfect world, they'd also describe how it came into existence—what conversations were had, what thought patterns were explored.
 
-And almost all of it vanishes the moment we hit merge.
+PR descriptions often get squashed and merged into the commit message, which is good. That's the durable layer.
 
-We've been here before. Pull requests were supposed to be the narrative-why did we do this? What's the context? What did we try? But PR descriptions are usually short. Not because people are lazy, but because it's expensive to write a great one, and even more expensive to read a long one. So we default to the smallest thing that works.
+But we also know that most engineers are a little lazy about writing really good descriptions. And I get it. I understand. In the past, writing descriptions was a generous task, and they would not always be read. The effort often felt unreciprocated.
 
-Now the economics changed. AI is extremely willing to write context, and even more willing to read it later.
+## The economics have changed
 
-That creates a weird new opportunity: we can start storing the story of a change, not just the change itself. And the only place that story really belongs is in Git.
+As we move to a new world, AI agents can read it all. They can read the history. They can read all the context. They can read every description you leave.
 
-I'm not talking about philosophical provenance. I mean the practical stuff you wish you had six months later.
+So the value of descriptions—even if unorganized and chaotic with typos—the value _increases_. The more context we can feed into the codebase, the smarter our tools become.
 
-For a given commit, I want to know: What was the original intent? What problem was I trying to solve? What plan did the agent propose, and what got rejected? What model and tools were used? Were there migrations, scripts, benchmarks involved? What tradeoffs did we consciously accept? What parts were me steering versus the agent driving?
+This flips the old equation. Writing providence used to be generous. Now it's strategic.
 
-If you've ever looked at a piece of code and thought, "This is odd. Why is it like this?" - you understand the value. Today you go spelunking through Slack, Linear, email, PR comments, or you ask a teammate who might not remember. Tomorrow, the best answer might be sitting right next to the code, waiting to be summarized.
+## What does providence look like when AI writes the code?
 
-The core insight is this: as codegen becomes normal, "how this code was produced" becomes part of the artifact.
+Here's the question I keep thinking about: what do descriptions and providence look like in the world of AI agents, when so many code changes are being written by AI?
 
-Why Git? Because it's boring in the best way.
+There's an amazing opportunity here. We can feed the providence—the chats, the models, the tools, the chat histories—into the Git history itself. It's the evolution of the commit message and the PR description. I think we can do a step better.
 
-Git is the durable layer. It survives tools, vendors, trends, and reorgs. If provenance lives in a proprietary database owned by whichever codegen tool is popular this year, you're basically renting your own project history. Git is how software teams already coordinate. It's the common substrate. If you want many different agents and tools to read and write provenance, Git is the most neutral place to put it.
+## A sidecar folder
 
-The question is: what's the simplest storage pattern that could actually catch on?
+There are different ways you could do this. You could use Git notes, but nobody fetches those by default. You could use Git trailers to trail metadata at the end of commits. Maybe we still should, as a secondary thing.
 
-There are two failure modes I'm trying to avoid.
-
-First, hidden metadata. Git notes are powerful - you can attach arbitrary blobs to commits. Elegant. But it disappears in practice because most people don't fetch notes by default, many UIs don't show them, and you need extra plumbing to push and pull them. "Remember to configure your notes ref" is not the vibe for a convention that spreads across teams and tools.
-
-Second, heavy schema on day one. If the whole thing requires a perfect JSON schema, a bespoke viewer, and a database of tool events, it won't ship. People will debate it forever, then do nothing. I want this to feel like something you could adopt on a Friday afternoon without asking permission.
-
-Here's what I'm proposing: a standardized Git trailer plus a sidecar folder.
-
-The trailer goes in the commit message. Tiny, predictable, greppable:
+But I think the most valuable approach is simpler: a sidecar folder.
 
 ```
-AI-Generated: true
-AI-Model: claude-4
-AI-Tools: cursor, repo-search, tests
-AI-Provenance: .ai/commits/a1b2c3d.md
+.providence/
+  auth-refactor.md
+  rate-limiting.md
+  search-performance.md
 ```
 
-This advertises that provenance exists. It captures just enough metadata to be interesting. It points to where the real story lives. It works with every existing Git tool. You can search for it in `git log` without special support.
+Markdown files. Human-readable. Agent-readable. Committed alongside the code they describe.
 
-Think of the trailer as the receipt stapled to the bag. The bag itself lives somewhere sane.
+I'm still on the fence about naming. My first instinct was to name files by commit SHA—but then I realized: if you commit the providence file in the same breath as the code change, Git already tracks that association. The file's own history tells you which commits it relates to.
 
-The sidecar is just a folder in the repo:
+This opens up a different pattern. Instead of one file per commit, you could have one file per _concept_. A file like `auth-refactor.md` that gets updated across multiple commits as the work evolves. You can link it to specific commits in the content if you want, but you don't have to encode the SHA in the filename.
 
-```
-.ai/
-  commits/
-    a1b2c3d.md
-```
+I'm also uncertain about the folder name. `.ai`? `.providence`? `.context`? Not sure yet. The general idea matters more than the specific convention.
 
-One markdown file per commit. Filename is the commit SHA. It shows up in diffs. It's visible on GitHub. It's obvious.
+What goes in these files? A lot of textual notes. Maybe the chat thread. Maybe a summarization of the chat thread. Maybe just the plan. We can leave it open-ended.
 
-Inside: mostly text. A little structure. No ceremony. A summary of what changed and why, the original intent, the approach the agent took, any pivots, tools and model used, tradeoffs considered, validation steps, follow-ups left unfinished.
+One thing I love about AI is that these files can be extremely low-format and fluid. AI can still find and parse them. That's fantastic. It means we don't need to over-engineer this with strict schemas or YAML frontmatter. Keep it loose.
 
-If you want machine readability, add lightweight front matter:
+## Why files matter
 
-```
-model: claude-4
-tools: [cursor, repo-search, tests]
-ai_pct_estimate: 0.8
-generated_at: 2026-01-16
-```
+When AI searches the codebase—RAG, codebase search, whatever—it can associate commits not just with _what_ was created, but with _how_ it came into being. What was the thought process? What alternatives were rejected? Why this approach?
 
-Then markdown below. That's it.
+By putting providence in actual files, humans can browse them too. You can put them in a dotfolder so they're somewhat hidden, but they're still files that anyone can open and read. Both humans and agents. There's value in that.
 
-I like markdown because it's the lingua franca of developer context. Friendly to humans, friendly to agents. You don't need a schema registry to parse bullet points. If a team wants stricter structure later, they can add it.
+And by using a dotfolder, we can establish patterns around discovery. Tools could automatically find and render these folders. Systems could adopt this convention.
 
-A sidecar folder also has a practical benefit: if it gets too big, you can delete it. You can prune, compress, move older provenance to a different branch, decide that only summaries live forever and raw transcripts expire. None of this requires magical Git plumbing.
+## On bloat
 
-Yes, this will bloat repos a little.
+Yes, this adds files to the repo. If these providence files are large, clones get slower.
 
-But repos already bloat from things we accept because the value is obvious-vendored code, generated files, large test fixtures, images, lockfiles, snapshots. Provenance is another kind of asset. It's not runtime code, but it's operational memory. The question isn't whether it costs bytes. It's whether it pays rent.
+But I'm optimistic. Bloat in Git is not the biggest issue in the world. Disks are getting bigger. Internet is getting faster. We can handle it.
 
-My bet: even a short summary pays rent quickly. The first time you avoid redoing work because an old `.ai` file tells you "we tried X, it failed because Y," you're ahead.
+And here's the beautiful thing: if the files get too big, you can always send AI through them to summarize, shorten, or clean them up. The format being loose makes this possible.
 
-You also don't need to store everything. I'm not advocating for dumping full chat logs by default-those can contain secrets, customer data, random paste bombs. Store the summary. Store the plan. Store the key decisions. If you store raw transcripts, do it intentionally, with redaction and retention rules.
+## Keep it simple
 
-If you only do the `.ai/` folder, tools still have to guess which file corresponds to which commit. Doable, but less clean.
+I've been really impressed with how some AI coding conventions work: just a folder path and markdown files. That's it. No schema registry. No special tooling. A pattern anyone can adopt.
 
-If you only do trailers, you have discovery but no story.
+I'd like to extend this to providence. A dotfolder. Markdown files with whatever names make sense. Write whatever context you want. Let it get indexed alongside the code.
 
-Together: the trailer is the standardized pointer, the `.ai/` file is the human and agent readable narrative. One is the index. The other is the content. Both are dead simple.
+The specifics—folder name, file naming convention, what exactly to include—can evolve. The core idea is getting providence history into the codebase in unstructured markdown files that both humans and agents can read.
 
-I think there's room for an industry convention here. Not a heavy "AI provenance standard committee" thing - just a couple of trailer keys that multiple tools agree on, and a boring folder name that doesn't make people roll their eyes.
-
-If you're building a codegen tool, this is a way to earn trust. Don't just generate code. Leave a trail. Make it inspectable. Make it portable. Give teams a way to understand what happened without depending on your backend.
-
-If you're running a team, this is a way to build actual memory. Not in someone's head. Not in Slack. In the repo, where it belongs.
-
-As code gets written more by talking than typing, the conversation becomes part of the work product.
-
-Git is where we keep the work product.
-
-So yes-AI provenance belongs in Git. Not hidden, not fancy. Just a small, readable trail next to the code, waiting for the next human or agent to ask, "Why is it like this?" and get a real answer.
+As more code originates from conversations with AI, the conversation becomes part of the artifact. Git is where we keep artifacts. Providence belongs there too.
