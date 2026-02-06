@@ -37,8 +37,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    creator: '@gregmfoster',
-    site: '@gregmfoster',
+    creator: '@gregfoster996',
+    site: '@gregfoster996',
   },
 };
 
@@ -53,7 +53,7 @@ const personSchema = {
     name: 'Graphite',
     url: 'https://graphite.dev',
   },
-  sameAs: ['https://twitter.com/gregmfoster', 'https://github.com/gregmfoster'],
+  sameAs: ['https://twitter.com/gregfoster996', 'https://github.com/gregfoster996'],
 };
 
 const websiteSchema = {

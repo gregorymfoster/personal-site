@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    creator: '@gregmfoster',
-    site: '@gregmfoster',
+    creator: '@gregfoster996',
+    site: '@gregfoster996',
   },
 };
 
@@ -44,9 +44,9 @@ export default async function Home() {
       url: 'https://graphite.dev',
     },
     sameAs: [
-      'https://x.com/gregmfoster',
-      'https://www.linkedin.com/in/gregmfoster/',
-      'https://github.com/gregmfoster',
+      'https://x.com/gregfoster996',
+      'https://www.linkedin.com/in/gregfoster996/',
+      'https://github.com/gregfoster996',
     ],
   };
 
@@ -93,13 +93,13 @@ export default async function Home() {
             </a>
           </li>
           <li>
-            <a href="https://x.com/gregmfoster" target="_blank" rel="noopener noreferrer">
+            <a href="https://x.com/gregfoster996" target="_blank" rel="noopener noreferrer">
               X
             </a>
           </li>
           <li>
             <a
-              href="https://www.linkedin.com/in/gregmfoster/"
+              href="https://www.linkedin.com/in/gregfoster996/"
               target="_blank"
               rel="noopener noreferrer"
             >

@@ -52,8 +52,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     },
     twitter: {
       card: 'summary_large_image',
-      creator: '@gregmfoster',
-      site: '@gregmfoster',
+      creator: '@gregfoster996',
+      site: '@gregfoster996',
     },
     other: {
       'article:author': 'Greg Foster',
@@ -96,7 +96,7 @@ export default async function BlogPost({ params }: PageProps) {
         name: 'Graphite',
         url: 'https://graphite.dev',
       },
-      sameAs: ['https://twitter.com/gregmfoster', 'https://github.com/gregmfoster'],
+      sameAs: ['https://twitter.com/gregfoster996', 'https://github.com/gregfoster996'],
     },
     publisher: {
       '@type': 'Person',
