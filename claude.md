@@ -74,6 +74,8 @@ Bad: "Software development has many challenges..."
 
 **Bullet-point listicles.** This isn't a Medium growth-hack article.
 
+**Title case.** Use sentence case for blog post titles - capitalize only the first word and proper nouns (e.g. "How I learned to code", not "How I Learned to Code"). Sentence case feels more conversational and matches the voice of the blog.
+
 **Clickbait.** Titles should be clear and honest, not sensational.
 
 **Excessive formality.** No "one might argue" or "it is worth noting that."
