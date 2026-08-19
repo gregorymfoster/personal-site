@@ -98,6 +98,7 @@ export default async function WritingPage() {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
+                  timeZone: 'UTC',
                 })}
               </p>
             </li>

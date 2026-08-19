@@ -3,11 +3,16 @@ import path from 'node:path';
 
 const contentDirectory = path.join(process.cwd(), 'content/writing');
 
+export const AI_USAGE_LEVELS = ['none', 'light', 'moderate', 'substantial'] as const;
+
+export type AIUsage = (typeof AI_USAGE_LEVELS)[number];
+
 export interface BlogPost {
   slug: string;
   title: string;
   date: string;
   description: string;
+  aiUse?: AIUsage;
   content: string;
 }
 
@@ -64,6 +69,7 @@ function extractMetadata(content: string): {
   title: string;
   date: string;
   description: string;
+  aiUse?: AIUsage;
 } {
   const metadataMatch = content.match(/^---\n([\s\S]*?)\n---/);
   if (!metadataMatch) {
@@ -84,9 +90,17 @@ function extractMetadata(content: string): {
     }
   }
 
+  const aiUse = metadata.aiUse;
+  if (aiUse && !AI_USAGE_LEVELS.includes(aiUse as AIUsage)) {
+    throw new Error(
+      `Invalid aiUse value "${aiUse}". Expected one of: ${AI_USAGE_LEVELS.join(', ')}`
+    );
+  }
+
   return {
     title: metadata.title || 'Untitled',
     date: metadata.date || new Date().toISOString(),
     description: metadata.description || '',
+    aiUse: aiUse as AIUsage | undefined,
   };
 }

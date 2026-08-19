@@ -59,4 +59,16 @@ describe('getBlogPost', () => {
       expect(post?.content).toBeTruthy();
     }
   });
+
+  it('should parse optional AI usage metadata', async () => {
+    const post = await getBlogPost('ode-to-engineering');
+
+    expect(post?.aiUse).toBe('none');
+  });
+
+  it('should leave AI usage undefined when it is not declared', async () => {
+    const post = await getBlogPost('starting-graphite');
+
+    expect(post?.aiUse).toBeUndefined();
+  });
 });

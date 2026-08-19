@@ -35,10 +35,13 @@ Create new MDX files in `content/blog/`:
 title: Your Post Title
 date: 2025-01-15
 description: A brief description
+aiUse: none
 ---
 
 Your content here...
 ```
+
+`aiUse` is optional. Set it to `none`, `light`, `moderate`, or `substantial` to show an AI-use indicator on the post.
 
 ## Customization
 

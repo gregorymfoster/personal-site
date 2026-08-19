@@ -4,6 +4,13 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
+const aiUsageLabels = {
+  none: 'None',
+  light: 'Light',
+  moderate: 'Moderate',
+  substantial: 'Substantial',
+} as const;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
@@ -154,9 +161,16 @@ export default async function BlogPost({ params }: PageProps) {
           year: 'numeric',
           month: 'long',
           day: 'numeric',
+          timeZone: 'UTC',
         })}{' '}
         • Greg Foster
       </p>
+      {post.aiUse && (
+        <p className="ai-usage-indicator">
+          <span>AI use in writing</span>
+          <strong>{aiUsageLabels[post.aiUse]}</strong>
+        </p>
+      )}
       <article>{content}</article>
       <p>
         <Link href="/">← Home</Link>
