@@ -4,7 +4,7 @@ This is a minimal personal website with a blog, built for simplicity and perform
 
 ## Project Overview
 
-A static personal website with MDX-powered blog posts, designed with a clean aesthetic inspired by nat.org and rauchg.com. The site is optimized for Vercel deployment and emphasizes fast load times, clean typography, and minimal dependencies.
+A static personal website with MDX-powered blog posts, designed with a clean aesthetic inspired by nat.org and rauchg.com. The site is exported to GitHub Pages and emphasizes fast load times, clean typography, and minimal dependencies.
 
 ## Writing Style Guide
 
@@ -119,7 +119,7 @@ Posts often blend multiple themes. A technical history piece might include perso
 - **Styling**: Vanilla CSS (no frameworks)
 - **Linting/Formatting**: Biome (fast, zero-config)
 - **Runtime**: Node.js 22 (LTS)
-- **Deployment**: Vercel
+- **Deployment**: GitHub Pages
 
 ## Architecture
 
@@ -271,9 +271,9 @@ export const metadata: Metadata = {
 
 ### Deploy
 
-1. Push to GitHub
-2. Import in Vercel (or run `vercel` CLI)
-3. Vercel auto-detects Next.js and Node.js 22 (from `.nvmrc`)
+1. Push to `main` on GitHub
+2. The GitHub Pages workflow tests and builds the static export
+3. GitHub Pages deploys the generated `out/` directory to `gmfoster.com`
 
 ## Scripts
 
@@ -337,7 +337,6 @@ If the user requests them:
 - Reading time estimates
 - Tag/category system for blog posts
 - Dark mode toggle
-- Vercel Analytics integration
 - Full-text search
 
 Keep additions minimal and purposeful. Every feature should justify its existence.

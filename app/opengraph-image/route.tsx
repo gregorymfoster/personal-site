@@ -9,6 +9,8 @@ const encouragingMessages = [
   'wants you to succeed',
 ];
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   // Pick a random message
   const randomMessage = encouragingMessages[Math.floor(Math.random() * encouragingMessages.length)];

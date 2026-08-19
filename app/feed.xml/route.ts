@@ -2,6 +2,8 @@ import { getBlogPosts } from '@/lib/mdx';
 
 const baseUrl = 'https://gmfoster.com';
 
+export const dynamic = 'force-static';
+
 function escapeXml(text: string): string {
   return text
     .replace(/&/g, '&amp;')

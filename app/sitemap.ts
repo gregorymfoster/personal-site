@@ -1,6 +1,8 @@
 import { getBlogPosts } from '@/lib/mdx';
 import type { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+
 function getPostPriority(postDate: string): number {
   const now = new Date();
   const date = new Date(postDate);
